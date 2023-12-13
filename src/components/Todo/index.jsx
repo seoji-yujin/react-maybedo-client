@@ -18,7 +18,9 @@ function Todo({ done, content, deleteTodo, doneTodo }) {
       <TodoText onClick={doneTodo} done={done}>
         {content}
       </TodoText>
-      {hovering && <DeleteButton onClick={deleteTodo} size="18" />}
+      {hovering && deleteTodo && (
+        <DeleteButton onClick={deleteTodo} size="18" />
+      )}
     </Container>
   );
 }

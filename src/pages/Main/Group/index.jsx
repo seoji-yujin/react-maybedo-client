@@ -16,30 +16,16 @@ import {
 import { IoAdd } from 'react-icons/io5';
 import { useNavigate } from 'react-router-dom';
 import { IoChevronBack } from 'react-icons/io5';
+import useSWR from 'swr';
+import fetcher from 'utils/fetcher';
 
 function Group() {
-  // 임시 데이터
-  const groups = [
-    { name: '얼리버드들', tags: ['모닝글로리', '해시태그'] },
-    { name: '얼리버드들', tags: ['모닝글로리', '해시태그'] },
-    { name: '얼리버드들', tags: ['모닝글로리', '해시태그'] },
-    { name: '얼리버드들', tags: ['모닝글로리', '해시태그'] },
-    {
-      name: '얼리버드들',
-      tags: [
-        '모닝글로리',
-        '해시태그',
-        '모닝글로리',
-        '해시태그',
-        '모닝글로리',
-        '해시태그',
-      ],
-    },
-    { name: '얼리버드들', tags: [] },
-  ];
+  const { data: groups } = useSWR('/groups', fetcher);
   const navigate = useNavigate();
   const [hoverSearch, setHoverSearch] = useState(false);
   const [searchMode, setSearchMode] = useState(false);
+
+  if (!groups) return null;
 
   return (
     <Container>
@@ -83,19 +69,21 @@ function Group() {
           <GroupWrapper
             key={i}
             onClick={() => {
-              navigate('/main/group/detail/1');
+              navigate(`/main/group/detail/${group.id}`);
             }}
           >
             <GroupImage />
             <GroupInfo>
               <GroupName>{group.name}</GroupName>
               <TagWrapper>
-                {group.tags.map((tag, i) => (
-                  <span key={i}>#{tag} </span>
+                {group.groupTags.map((item, i) => (
+                  <span key={i}>#{item.tag.content} </span>
                 ))}
               </TagWrapper>
             </GroupInfo>
-            <MemberCountInfo>2/5</MemberCountInfo>
+            <MemberCountInfo>
+              {group.join_list.length}/{group.limit_member}
+            </MemberCountInfo>
           </GroupWrapper>
         ))}
         {!searchMode && (

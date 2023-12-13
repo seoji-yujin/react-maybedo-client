@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import {
   Container,
   TitleDiv,
@@ -15,38 +15,48 @@ import {
   Content,
 } from './style';
 import { IoChevronBack } from 'react-icons/io5';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import dayjs from 'dayjs';
 import { CircularProgressbarWithChildren } from 'react-circular-progressbar';
 import UserTodo from './UserTodoDetail';
+import useSWR from 'swr';
+import fetcher from 'utils/fetcher';
+import { isEmpty } from 'lodash';
 
 function GroupDetail() {
-  // 임시
-  const users = [
-    { id: 0, name: 'YUSUNG' },
-    { id: 1, name: 'YUSUNG' },
-    { id: 2, name: 'YUSUNG' },
-    { id: 3, name: 'YUSUNG' },
-    { id: 4, name: 'YUSUNG' },
-    { id: 5, name: 'YUSUNG' },
-    { id: 6, name: 'YUSUNG' },
-    { id: 7, name: 'YUSUNG' },
-    { id: 8, name: 'YUSUNG' },
-    { id: 9, name: 'YUSUNG' },
-    { id: 10, name: 'YUSUNG' },
-    { id: 11, name: 'YUSUNG' },
-    { id: 12, name: 'YUSUNG' },
-  ];
+  const { id } = useParams();
+  const { data: groupInfo } = useSWR(`/group/${id}`, fetcher);
+  const { data: memberInfo } = useSWR(`/group/members/${id}`, fetcher);
+
   const navigate = useNavigate();
-  const [selectUser, setSelectUser] = useState(users[0]);
+  const [selectUser, setSelectUser] = useState(null);
   const [showDetail, setShowDetail] = useState(false);
 
-  if (showDetail)
+  const getRate = useCallback((user) => {
+    if (!user) return 0;
+    const totalCnt = user.todo_list.length;
+    const doneCnt = user.todo_list.filter(
+      (todo) => todo.status === 'DONE'
+    ).length;
+    return totalCnt === 0 ? 0 : Math.floor((doneCnt / totalCnt) * 100);
+  }, []);
+
+  useEffect(() => {
+    if (!memberInfo || isEmpty(memberInfo)) return;
+    setSelectUser(memberInfo[0]);
+  }, [memberInfo]);
+
+  if (!groupInfo || !memberInfo) {
+    return null;
+  }
+
+  if (showDetail && selectUser)
     return (
       <UserTodo
         close={() => {
           setShowDetail(false);
         }}
+        user={selectUser}
       />
     );
 
@@ -58,7 +68,7 @@ function GroupDetail() {
         }}
       >
         <IoChevronBack />
-        얼리버드들 (2/5)
+        {groupInfo.name} ({groupInfo.join_list.length}/{groupInfo.limit_member})
       </TitleDiv>
       <Content>
         <TodayWrapper>
@@ -68,15 +78,13 @@ function GroupDetail() {
         <TodoWrapper>
           <div>백준 매일 1문제 이상 풀기</div>
           <div>백준 매일 1문제 이상 풀기</div>
-          <div>백준 매일 1문제 이상 풀기</div>
-          <div>백준 매일 1문제 이상 풀기</div>
         </TodoWrapper>
         <MemberWrapper>
-          {users.map((user) => (
+          {memberInfo.map((member) => (
             <MemberDiv
-              key={user.id}
+              key={member.id}
               onClick={() => {
-                setSelectUser(user);
+                setSelectUser(member);
               }}
             >
               <CircularProgressbarWithChildren
@@ -88,13 +96,13 @@ function GroupDetail() {
                   },
                   path: {
                     stroke:
-                      selectUser.id === user.id
+                      selectUser?.id === member.id
                         ? 'var(--color-primary)'
                         : 'var(--color-disabled)',
                     strokeWidth: '5px',
                   },
                 }}
-                value={66}
+                value={getRate(selectUser)}
               >
                 <ProfileWrapper>
                   <img
@@ -103,27 +111,29 @@ function GroupDetail() {
                   />
                 </ProfileWrapper>
               </CircularProgressbarWithChildren>
-              <UserName selected={selectUser.id === user.id}>
-                {user.name}
+              <UserName selected={selectUser?.id === member.id}>
+                {member.username}
               </UserName>
             </MemberDiv>
           ))}
         </MemberWrapper>
-        <MemberDetailWrapper>
-          <DetailUserName>{selectUser.name}</DetailUserName>
-          <DetailContent>
-            <div>
-              오늘의 목표 달성률 <b>66%</b>
-            </div>
-            <MoreDetailButton
-              onClick={() => {
-                setShowDetail(true);
-              }}
-            >
-              자세히 보기 {'>'}
-            </MoreDetailButton>
-          </DetailContent>
-        </MemberDetailWrapper>
+        {selectUser && (
+          <MemberDetailWrapper>
+            <DetailUserName>{selectUser.username}</DetailUserName>
+            <DetailContent>
+              <div>
+                오늘의 목표 달성률 <b>{getRate(selectUser)}%</b>
+              </div>
+              <MoreDetailButton
+                onClick={() => {
+                  setShowDetail(true);
+                }}
+              >
+                자세히 보기 {'>'}
+              </MoreDetailButton>
+            </DetailContent>
+          </MemberDetailWrapper>
+        )}
       </Content>
     </Container>
   );

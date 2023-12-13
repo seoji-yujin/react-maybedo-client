@@ -40,7 +40,6 @@ function TodoList() {
       if (isEmpty(inputTodo.trim())) return;
       setInputTodo('');
       const newTodo = {
-        done: false,
         content: inputTodo.trim(),
         date: dayjs(today).format('YYYY-MM-DD'),
       };
