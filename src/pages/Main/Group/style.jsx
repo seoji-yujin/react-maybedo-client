@@ -8,6 +8,7 @@ export const Container = styled(MainContainer)`
   flex-direction: column;
   margin-top: 1rem;
   height: 80vh;
+  width: 45rem;
   /* background-color: #fefefe; */
   /* box-shadow: 2px 4px 12px rgba(0, 0, 0, 0.2); */
 `;
@@ -38,6 +39,7 @@ export const SearchInputWrapper = styled.div`
 export const HeaderWrapper = styled.div`
   padding: 0 1rem;
   font-weight: 700;
+  font-size: 1.5rem;
   display: flex;
   align-items: end;
   justify-content: space-between;
@@ -85,8 +87,8 @@ export const GroupListWrapper = styled.div`
 
 export const GroupImage = styled.div`
   background-color: #d0d0d0;
-  width: 100%;
-  height: 7rem;
+  width: 10rem;
+  height: 100%;
   background: url('https://bit.ly/3e22Imq');
   background-position: center;
   background-repeat: no-repeat;
@@ -95,8 +97,7 @@ export const GroupImage = styled.div`
 export const GroupWrapper = styled.div`
   display: flex;
   gap: 0.8rem;
-  width: calc(50% - 0.5rem);
-  flex-direction: column;
+  width: 100%;
   /* border-bottom: 1px solid var(--color-primary); */
   box-shadow: 2px 4px 12px rgba(0, 0, 0, 0.1);
   background-color: white;
@@ -116,7 +117,7 @@ export const GroupInfo = styled.div`
   flex-direction: column;
   flex-grow: 1;
   gap: 0.8rem;
-  padding: 0 0.6rem;
+  padding: 1rem;
 `;
 
 export const GroupName = styled.div`
@@ -139,13 +140,18 @@ export const TagWrapper = styled.div`
   column-gap: 0.5rem;
   row-gap: 0.4rem;
   > span {
-    padding: 0.05rem 0.8rem;
-    border-radius: 10px;
+    padding: 0.15rem 0.8rem;
+    border-radius: 20px;
     background-color: #eeeeff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 `;
 
 export const AddGroupButton = styled(GroupWrapper)`
+  display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: 0.5rem;
@@ -154,4 +160,9 @@ export const AddGroupButton = styled(GroupWrapper)`
   :hover {
     transform: scale3d(1, 1, 1);
   }
+`;
+
+export const GroupDesc = styled.div`
+  font-weight: 400;
+  font-size: 0.8rem;
 `;

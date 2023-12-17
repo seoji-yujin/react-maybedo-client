@@ -8,10 +8,10 @@ function UserTodo({ close, user }) {
     <Container>
       <TitleWrapper onClick={close}>
         <PreviousIcon />
-        {user.username}'S TODO
+        {user.name}'S TODO
       </TitleWrapper>
       <TodoListWrapper>
-        {user.todo_list.map((todo, i) => (
+        {user.todoList.map((todo, i) => (
           <Todo key={i} content={todo.content} done={todo.status === 'DONE'} />
         ))}
       </TodoListWrapper>

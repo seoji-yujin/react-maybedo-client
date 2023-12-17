@@ -7,6 +7,8 @@ import GroupDetail from 'pages/Main/GroupDetail';
 import Login from 'pages/Login';
 import { ToastContainer, Flip } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Join from 'pages/Join';
+import CreateGroup from 'pages/Main/CreateGroup';
 
 function App() {
   return (
@@ -14,12 +16,14 @@ function App() {
       <GlobalStyle />
       <BrowserRouter>
         <Routes>
-          <Route path="/main" element={<Main />}>
-            <Route path="/main" element={<TodoList />} />
-            <Route path="/main/group" element={<Group />} />
-            <Route path="/main/group/detail/:id" element={<GroupDetail />} />
+          <Route path="/" element={<Main />}>
+            <Route path="/" element={<TodoList />} />
+            <Route path="/group" element={<Group />} />
+            <Route path="/group/:id" element={<GroupDetail />} />
+            <Route path="/group/create" element={<CreateGroup />} />
           </Route>
           <Route path="/login" element={<Login />} />
+          <Route path="/join" element={<Join />} />
           <Route path="*" element={<Navigate to="/login" />} />
         </Routes>
       </BrowserRouter>

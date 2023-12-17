@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
   Container,
   GroupListWrapper,
@@ -7,91 +7,57 @@ import {
   HeaderWrapper,
   GroupInfo,
   GroupName,
-  MemberCountInfo,
   TagWrapper,
   GroupImage,
-  AnotherGroupButton,
-  SearchInputWrapper,
+  GroupDesc,
 } from './style';
 import { IoAdd } from 'react-icons/io5';
 import { useNavigate } from 'react-router-dom';
-import { IoChevronBack } from 'react-icons/io5';
 import useSWR from 'swr';
 import fetcher from 'utils/fetcher';
 
 function Group() {
-  const { data: groups } = useSWR('/groups', fetcher);
+  const { data: groups } = useSWR('/member/my_group', fetcher);
   const navigate = useNavigate();
-  const [hoverSearch, setHoverSearch] = useState(false);
-  const [searchMode, setSearchMode] = useState(false);
 
   if (!groups) return null;
 
   return (
     <Container>
       <HeaderWrapper>
-        {!searchMode && (
-          <>
-            <div>GROUPS</div>
-            <AnotherGroupButton
-              onClick={() => {
-                setSearchMode(true);
-              }}
-            >
-              둘러보기 🔍
-            </AnotherGroupButton>
-          </>
-        )}
-        {searchMode && (
-          <SearchInputWrapper
-            onMouseEnter={() => {
-              setHoverSearch(true);
-            }}
-            onMouseLeave={() => {
-              setHoverSearch(false);
-            }}
-          >
-            {hoverSearch && (
-              <IoChevronBack
-                onClick={() => {
-                  setSearchMode(false);
-                }}
-                style={{ cursor: 'pointer' }}
-                size="21"
-              />
-            )}
-            <input placeholder="🔍 그룹 검색" />
-          </SearchInputWrapper>
-        )}
+        <div>GROUPS</div>
       </HeaderWrapper>
       <GroupListWrapper>
         {groups.map((group, i) => (
           <GroupWrapper
             key={i}
             onClick={() => {
-              navigate(`/main/group/detail/${group.id}`);
+              navigate(`/group/${group.id}`);
             }}
           >
             <GroupImage />
             <GroupInfo>
               <GroupName>{group.name}</GroupName>
+              <GroupDesc>{group.description}</GroupDesc>
               <TagWrapper>
                 {group.groupTags.map((item, i) => (
                   <span key={i}>#{item.tag.content} </span>
                 ))}
               </TagWrapper>
             </GroupInfo>
-            <MemberCountInfo>
-              {group.join_list.length}/{group.limit_member}
-            </MemberCountInfo>
+            {/* <MemberCountInfo>
+              {group.joinList.length}/{group.limitMember}
+            </MemberCountInfo> */}
           </GroupWrapper>
         ))}
-        {!searchMode && (
-          <AddGroupButton>
-            그룹 생성
-            <IoAdd size="31" />
-          </AddGroupButton>
-        )}
+        <AddGroupButton
+          onClick={() => {
+            navigate('/group/create');
+          }}
+        >
+          그룹 추가
+          <IoAdd size="21" />
+        </AddGroupButton>
       </GroupListWrapper>
     </Container>
   );

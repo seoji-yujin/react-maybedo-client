@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 
-export const ProfileImage = styled.div`
+const ProfileImage = styled.div`
   ${(props) => props.width && `width: ${props.width}rem`};
   ${(props) => props.height && `height: ${props.height}rem`};
   border-radius: 50%;
@@ -9,4 +9,7 @@ export const ProfileImage = styled.div`
   background-repeat: no-repeat;
   background-position: center;
   background-color: #cfcfcf;
+  ${(props) => props.cursor && `cursor:${props.cursor};`}
 `;
+
+export default ProfileImage;

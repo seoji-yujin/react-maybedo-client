@@ -7,6 +7,7 @@ import {
   PreviousIcon,
   NextIcon,
   CornerDiv,
+  MemoTitle,
 } from './style';
 import dayjs from 'dayjs';
 import Todo from 'components/Todo';
@@ -16,7 +17,7 @@ import MemoList from './MemoList';
 import useSWR from 'swr';
 import fetcher from 'utils/fetcher';
 import useRequest from 'hooks/useRequest';
-import { createTodo, toggleTodo } from 'apis/todo';
+import { createTodo, toggleTodo, deleteTodo } from 'apis/todo';
 
 const TODO = 'todo';
 const MEMO = 'memo';
@@ -51,7 +52,16 @@ function TodoList() {
     [isComposing, inputTodo, setInputTodo, today, requestAddTodo, mutate]
   );
 
-  const deleteTodo = useCallback((id) => {}, []);
+  const requestDelTodo = useRequest(deleteTodo);
+  const deleteTodoProc = useCallback(
+    async (id) => {
+      await requestDelTodo(id).catch((e) => {
+        console.error(e);
+      });
+      mutate();
+    },
+    [mutate, requestDelTodo]
+  );
 
   const requsetDoneTodo = useRequest(toggleTodo);
   const doneTodo = useCallback(
@@ -91,24 +101,32 @@ function TodoList() {
     // }}
     >
       <TodayWrapper>
-        <PreviousIcon
-          onClick={() => {
-            setToday((prev) => prev.subtract(1, 'd'));
-          }}
-        />
-        <div
-          onClick={() => {
-            setToday(dayjs());
-          }}
-        >
-          {today.format('MMMM DD[th] - ')}
-          {today.format('dddd').toUpperCase()}
-        </div>
-        <NextIcon
-          onClick={() => {
-            setToday((prev) => prev.add(1, 'd'));
-          }}
-        />
+        {mode === MEMO ? (
+          <MemoTitle>
+            <div>MEMO</div>
+          </MemoTitle>
+        ) : (
+          <>
+            <PreviousIcon
+              onClick={() => {
+                setToday((prev) => prev.subtract(1, 'd'));
+              }}
+            />
+            <div
+              onClick={() => {
+                setToday(dayjs());
+              }}
+            >
+              {today.format('MMMM DD[th] - ')}
+              {today.format('dddd').toUpperCase()}
+            </div>
+            <NextIcon
+              onClick={() => {
+                setToday((prev) => prev.add(1, 'd'));
+              }}
+            />
+          </>
+        )}
       </TodayWrapper>
       {mode === TODO && (
         <>
@@ -122,7 +140,7 @@ function TodoList() {
                 content={todo.content}
                 done={todo.status === 'DONE'}
                 deleteTodo={() => {
-                  deleteTodo(todo.id);
+                  deleteTodoProc(todo.id);
                 }}
               />
             ))}

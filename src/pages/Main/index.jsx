@@ -1,30 +1,30 @@
 import React, { useState } from 'react';
 import Layout from 'layouts/Layout';
-import {
-  MenuButton,
-  MenuList,
-  MenuItemLabel,
-  MenuItemButton,
-  MenuItemWrapper,
-} from './style';
-import { GiHamburgerMenu } from 'react-icons/gi';
-import { RiTodoFill } from 'react-icons/ri';
-import { MdGroup } from 'react-icons/md';
+// import {
+//   MenuButton,
+//   MenuList,
+//   MenuItemLabel,
+//   MenuItemButton,
+//   MenuItemWrapper,
+// } from './style';
+// import { GiHamburgerMenu } from 'react-icons/gi';
+// import { RiTodoFill } from 'react-icons/ri';
+// import { MdGroup } from 'react-icons/md';
 import { Outlet, useNavigate } from 'react-router-dom';
 
 function Main() {
-  const menus = [
-    // { label: 'CALENDAR', component: <div />, icon:<div /> },
-    { label: 'TODO', route: '/main', icon: <RiTodoFill /> },
-    { label: 'GROUP', route: '/main/group', icon: <MdGroup /> },
-  ];
-  const [hovering, setHovering] = useState(false);
-  const navigate = useNavigate();
+  // const menus = [
+  //   // { label: 'CALENDAR', component: <div />, icon:<div /> },
+  //   { label: 'TODO', route: '/', icon: <RiTodoFill /> },
+  //   { label: 'GROUP', route: '/group', icon: <MdGroup /> },
+  // ];
+  // const [hovering, setHovering] = useState(false);
+  // const navigate = useNavigate();
 
   return (
     <Layout>
       <Outlet />
-      <MenuList
+      {/* <MenuList
         onMouseEnter={() => {
           setHovering(true);
         }}
@@ -56,7 +56,7 @@ function Main() {
             <GiHamburgerMenu />
           </MenuButton>
         </MenuItemWrapper>
-      </MenuList>
+      </MenuList> */}
     </Layout>
   );
 }

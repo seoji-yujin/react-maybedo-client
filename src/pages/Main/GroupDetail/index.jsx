@@ -34,8 +34,8 @@ function GroupDetail() {
 
   const getRate = useCallback((user) => {
     if (!user) return 0;
-    const totalCnt = user.todo_list.length;
-    const doneCnt = user.todo_list.filter(
+    const totalCnt = user.todoList.length;
+    const doneCnt = user.todoList.filter(
       (todo) => todo.status === 'DONE'
     ).length;
     return totalCnt === 0 ? 0 : Math.floor((doneCnt / totalCnt) * 100);
@@ -68,7 +68,7 @@ function GroupDetail() {
         }}
       >
         <IoChevronBack />
-        {groupInfo.name} ({groupInfo.join_list.length}/{groupInfo.limit_member})
+        {groupInfo.name} ({groupInfo.joinList.length}/{groupInfo.limitMember})
       </TitleDiv>
       <Content>
         <TodayWrapper>
@@ -112,14 +112,14 @@ function GroupDetail() {
                 </ProfileWrapper>
               </CircularProgressbarWithChildren>
               <UserName selected={selectUser?.id === member.id}>
-                {member.username}
+                {member.name}
               </UserName>
             </MemberDiv>
           ))}
         </MemberWrapper>
         {selectUser && (
           <MemberDetailWrapper>
-            <DetailUserName>{selectUser.username}</DetailUserName>
+            <DetailUserName>{selectUser.name}</DetailUserName>
             <DetailContent>
               <div>
                 오늘의 목표 달성률 <b>{getRate(selectUser)}%</b>

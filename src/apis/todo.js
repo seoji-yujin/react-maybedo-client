@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from './config';
 
 const PREFIX_URL = '/todo';
 
@@ -14,4 +14,11 @@ export function createTodo(params) {
  */
 export function toggleTodo(id) {
   return axios.put(`${PREFIX_URL}/done/${id}`);
+}
+
+/**
+ * 투드를 삭제한다.
+ */
+export function deleteTodo(id) {
+  return axios.delete(`${PREFIX_URL}/delete/${id}`);
 }

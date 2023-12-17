@@ -84,3 +84,9 @@ export const NextIcon = styled(MdOutlineArrowForwardIos)`
   cursor: pointer;
   color: var(--color-primary);
 `;
+
+export const MemoTitle = styled.div`
+  text-align: center;
+  width: 100%;
+  cursor: default !important;
+`;
