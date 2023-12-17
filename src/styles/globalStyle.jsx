@@ -9,6 +9,8 @@ const baseStyle = css`
   :root {
     --color-primary: #4e4eff;
     --color-disabled: #9d9dfe;
+    --color-textgray: #8b8b8b;
+    --color-border: #d9d9d9;
     --max-width: 1240px;
   }
   html {
@@ -34,7 +36,8 @@ const baseStyle = css`
     height: 100%;
     overflow: auto;
     line-height: 1.5;
-    color: var(--color-primary);
+    /* color: var(--color-primary); */
+    color: #000;
     background-color: #fbfbfd;
     -ms-overflow-style: none; /* IE and Edge */
     scrollbar-width: none; /* Firefox */

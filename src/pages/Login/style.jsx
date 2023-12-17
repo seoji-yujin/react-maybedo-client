@@ -5,6 +5,7 @@ export const LogoDiv = styled.div`
   font-weight: 500;
   margin-bottom: 2rem;
   text-align: center;
+  color: var(--color-primary);
 `;
 
 export const Container = styled.div`

@@ -9,6 +9,7 @@ import { ToastContainer, Flip } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Join from 'pages/Join';
 import CreateGroup from 'pages/Main/CreateGroup';
+import SearchGroup from 'pages/Main/SearchGroup';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           <Route path="/" element={<Main />}>
             <Route path="/" element={<TodoList />} />
             <Route path="/group" element={<Group />} />
+            <Route path="/group/search" element={<SearchGroup />} />
             <Route path="/group/:id" element={<GroupDetail />} />
             <Route path="/group/create" element={<CreateGroup />} />
           </Route>

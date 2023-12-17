@@ -8,3 +8,10 @@ const PREFIX_URL = '/group';
 export function createGroup(params) {
   return axios.post(`${PREFIX_URL}/create`, params);
 }
+
+/**
+ * 그룹에 가입한다.
+ */
+export function joinGroup(gropuId) {
+  return axios.post(`${PREFIX_URL}/join/${gropuId}`);
+}

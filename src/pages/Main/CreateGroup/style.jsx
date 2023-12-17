@@ -17,6 +17,7 @@ export const TitleDiv = styled.div`
   text-align: center;
   font-size: 1.75rem;
   font-weight: 700;
+  color: var(--color-primary);
   > span {
     position: absolute;
     cursor: pointer;
@@ -85,6 +86,7 @@ export const NameTagDiv = styled.div`
   font-size: 0.875rem;
   font-weight: 400;
   background: #e8e8ff;
+  color: var(--color-primary);
   display: flex;
   padding: 0.2rem 0.5rem;
   border-radius: 0.2rem;

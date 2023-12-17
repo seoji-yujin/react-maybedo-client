@@ -10,7 +10,7 @@ export const Container = styled(MainContainer)`
   display: flex;
   flex-direction: column;
   /* background-color: #fefefe; */
-  box-shadow: 2px 4px 12px rgba(0, 0, 0, 0.2);
+  box-shadow: 2px 4px 12px rgba(0, 0, 0, 0.1);
 `;
 
 export const CornerDiv = styled.div`
@@ -20,7 +20,7 @@ export const CornerDiv = styled.div`
   width: 60px;
   height: auto;
   aspect-ratio: 1 / 1;
-  box-shadow: 2px 4px 12px rgba(0, 0, 0, 0.2);
+  box-shadow: 2px 4px 12px rgba(0, 0, 0, 0.1);
   background: linear-gradient(
     135deg,
     rgba(0, 0, 0, 0) 0%,
@@ -44,6 +44,7 @@ export const TodayWrapper = styled.div`
   font-size: 1.2rem;
   font-weight: 600;
   background-color: white;
+  color: var(--color-primary);
   > div {
     cursor: pointer;
   }

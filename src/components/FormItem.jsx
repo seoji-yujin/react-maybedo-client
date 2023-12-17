@@ -16,6 +16,7 @@ const FormItem = styled.div`
     font-size: 0.875rem;
     font-weight: 700;
     padding: 0.87rem 0;
+    color: var(--color-primary);
     @media ${theme.device.tablet}, ${theme.device.phone} {
       ${(props) => props.emptyLabel && 'display:none;'}
     }

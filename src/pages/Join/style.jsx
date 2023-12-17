@@ -16,6 +16,7 @@ export const TitleDiv = styled.div`
   font-weight: 700;
   display: flex;
   align-items: center;
+  color: var(--color-primary);
   > span {
     position: absolute;
     cursor: pointer;

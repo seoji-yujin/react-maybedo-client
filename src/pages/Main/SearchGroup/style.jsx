@@ -1,5 +1,4 @@
 import styled from '@emotion/styled';
-import { GroupWrapper } from 'components/GroupInfo/style';
 import { MainContainer } from 'layouts/MainContainer';
 
 export const Container = styled(MainContainer)`
@@ -12,6 +11,32 @@ export const Container = styled(MainContainer)`
   margin-top: 2rem;
   /* background-color: #fefefe; */
   /* box-shadow: 2px 4px 12px rgba(0, 0, 0, 0.2); */
+`;
+
+export const SearchInputWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem 0.7rem;
+  width: 100%;
+  box-sizing: border-box;
+  gap: 1rem;
+  position: relative;
+  > div {
+    position: absolute;
+    left: 30px;
+    font-weight: 600;
+  }
+  & input {
+    width: 100%;
+    padding: 0.7rem 1rem 0.7rem 2rem;
+    background-color: white;
+    /* box-shadow: 2px 4px 12px rgba(0, 0, 0, 0.1);
+    border: none; */
+    border: 1px solid var(--color-border);
+    font-size: 0.9rem;
+    border-radius: 50px;
+  }
 `;
 
 export const HeaderWrapper = styled.div`
@@ -62,36 +87,32 @@ export const GroupListWrapper = styled.div`
 
 export const SearchButton = styled.div`
   font-size: 0.85rem;
-  font-weight: 400;
-  color: #000;
+  font-weight: 500;
+  color: var(--color-primary);
   cursor: pointer;
 `;
 
-export const AddGroupButton = styled(GroupWrapper)`
+export const TagWrapper = styled.div`
   display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 1.2rem 0;
-  color: #525252;
-  font-size: 0.9rem;
-  font-weight: 400;
-  border: 1px solid var(--color-border);
-  margin-bottom: 2rem;
-  :hover {
-    transform: none;
-  }
+  gap: 1rem;
+  flex-wrap: wrap;
+  width: 80%;
+  padding: 0 1rem;
 `;
 
-export const TotalGroupDiv = styled.div`
-  color: #777777;
-  font-weight: 500;
-  font-size: 0.8rem;
+export const TagDiv = styled.div`
+  text-align: center;
+  font-size: 0.875rem;
+  font-weight: 400;
+  background: #e8e8ff;
+  color: var(--color-primary);
   display: flex;
-  flex-direction: column;
+  padding: 0.2rem 0.5rem;
+  border-radius: 0.2rem;
+  align-items: center;
   gap: 0.5rem;
   > div {
-    font-size: 0.7rem;
-    font-weight: 400;
+    cursor: pointer;
+    font-size: 0.8rem;
   }
 `;
