@@ -46,6 +46,7 @@ export const GroupInfoDiv = styled.div`
 export const GroupName = styled.div`
   font-size: 1.1rem;
   font-weight: 600;
+  color: var(--color-primary);
 `;
 
 export const MemberCountInfo = styled.div`

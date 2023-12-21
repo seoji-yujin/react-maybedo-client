@@ -12,6 +12,7 @@ export const TodoText = styled.div`
   font-size: 1.05rem;
   font-weight: 500;
   flex-grow: 1;
+  text-align: start;
   color: var(--color-primary);
   ${(props) => props.done && 'text-decoration: line-through'};
   ${(props) => props.done && 'color: var(--color-disabled)'};

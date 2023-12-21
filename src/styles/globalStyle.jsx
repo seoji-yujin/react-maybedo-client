@@ -11,6 +11,7 @@ const baseStyle = css`
     --color-disabled: #9d9dfe;
     --color-textgray: #8b8b8b;
     --color-border: #d9d9d9;
+    --color-background: #fbfbfd;
     --max-width: 1240px;
   }
   html {
@@ -38,7 +39,7 @@ const baseStyle = css`
     line-height: 1.5;
     /* color: var(--color-primary); */
     color: #000;
-    background-color: #fbfbfd;
+    background-color: var(--color-background);
     -ms-overflow-style: none; /* IE and Edge */
     scrollbar-width: none; /* Firefox */
     &::-webkit-scrollbar {

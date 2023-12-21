@@ -45,6 +45,8 @@ export const TodayWrapper = styled.div`
   font-weight: 600;
   background-color: white;
   color: var(--color-primary);
+  position: sticky;
+  top: 0;
   > div {
     cursor: pointer;
   }

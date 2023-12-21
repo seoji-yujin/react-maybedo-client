@@ -1,60 +1,68 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import {
   Container,
   TitleDiv,
-  TodayWrapper,
-  MemberWrapper,
-  MemberDiv,
-  TodoWrapper,
-  ProfileWrapper,
-  UserName,
-  MemberDetailWrapper,
-  DetailUserName,
-  DetailContent,
-  MoreDetailButton,
+  GroupProfileWrapper,
+  MenuList,
+  MenuDiv,
+  GroupInfoDiv,
   Content,
+  GroupImage,
 } from './style';
 import { IoChevronBack } from 'react-icons/io5';
 import { useNavigate, useParams } from 'react-router-dom';
-import dayjs from 'dayjs';
-import { CircularProgressbarWithChildren } from 'react-circular-progressbar';
 import UserTodo from './UserTodoDetail';
 import useSWR from 'swr';
 import fetcher from 'utils/fetcher';
-import { isEmpty } from 'lodash';
+import {
+  GroupDesc,
+  GroupName,
+  GroupSummary,
+  TagWrapper,
+} from 'components/GroupInfo/style';
+import { BsPersonFill, BsPerson } from 'react-icons/bs';
+import { IoCalendarClear, IoGridOutline } from 'react-icons/io5';
+import GroupMembers from './GroupMembers';
+import GroupInfo from './GroupInfo';
+import Modal from 'layouts/Modal';
+import ModalLayout from 'layouts/ModalLayout';
 
 function GroupDetail() {
   const { id } = useParams();
   const { data: groupInfo } = useSWR(`/group/${id}`, fetcher);
-  const { data: memberInfo } = useSWR(`/group/members/${id}`, fetcher);
 
   const navigate = useNavigate();
   const [selectUser, setSelectUser] = useState(null);
   const [showDetail, setShowDetail] = useState(false);
 
-  const getRate = useCallback((user) => {
-    if (!user) return 0;
-    return !user.achievement ? 0 : Math.floor(user.achievement);
-  }, []);
+  const menuList = useMemo(
+    () => [
+      {
+        id: 1,
+        label: 'INFO',
+        icon: <IoGridOutline size="13" />,
+        component: <GroupInfo />,
+      },
+      {
+        id: 2,
+        label: 'MEMBERS',
+        icon: <BsPerson />,
+        component: (
+          <GroupMembers
+            setUser={setSelectUser}
+            setShowDetail={setShowDetail}
+            groupId={id}
+          />
+        ),
+      },
+    ],
+    [id]
+  );
+  const [curMenu, setCurMenu] = useState(menuList[0]);
 
-  useEffect(() => {
-    if (!memberInfo || isEmpty(memberInfo)) return;
-    setSelectUser(memberInfo[0]);
-  }, [memberInfo]);
-
-  if (!groupInfo || !memberInfo) {
+  if (!groupInfo) {
     return null;
   }
-
-  if (showDetail && selectUser)
-    return (
-      <UserTodo
-        close={() => {
-          setShowDetail(false);
-        }}
-        user={selectUser}
-      />
-    );
 
   return (
     <Container>
@@ -64,73 +72,66 @@ function GroupDetail() {
         }}
       >
         <IoChevronBack />
-        {groupInfo.name} ({groupInfo.joinList.length}/{groupInfo.limitMember})
+        {groupInfo.name}
       </TitleDiv>
       <Content>
-        <TodayWrapper>
-          {dayjs().format('MMMM DD[th] - ')}
-          {dayjs().format('dddd').toUpperCase()}
-        </TodayWrapper>
-        <TodoWrapper>
-          <div>백준 매일 1문제 이상 풀기</div>
-          <div>백준 매일 1문제 이상 풀기</div>
-        </TodoWrapper>
-        <MemberWrapper>
-          {memberInfo.map((member) => (
-            <MemberDiv
-              key={member.id}
+        <GroupProfileWrapper>
+          <GroupImage />
+          <GroupInfoDiv>
+            <div>
+              <GroupSummary>
+                <div>
+                  <span>
+                    <BsPersonFill />
+                  </span>
+                  {groupInfo.joinList.length}/{groupInfo.limitMember}
+                </div>
+                <div>
+                  <span>
+                    <IoCalendarClear />
+                  </span>
+
+                  {groupInfo.expireDate}
+                </div>
+              </GroupSummary>
+              <GroupName>{groupInfo.name}</GroupName>
+              <GroupDesc>{groupInfo.description}</GroupDesc>
+            </div>
+            <TagWrapper>
+              {groupInfo.groupTags.map((item, i) => (
+                <span key={i}>#{item.tag.content} </span>
+              ))}
+            </TagWrapper>
+          </GroupInfoDiv>
+        </GroupProfileWrapper>
+        <MenuList>
+          {menuList.map((menu) => (
+            <MenuDiv
+              key={menu.id}
               onClick={() => {
-                setSelectUser(member);
+                setCurMenu(menu);
               }}
+              selected={curMenu.id === menu.id}
             >
-              <CircularProgressbarWithChildren
-                styles={{
-                  root: {
-                    width: '5rem',
-                    height: '5rem',
-                    display: 'flex',
-                  },
-                  path: {
-                    stroke:
-                      selectUser?.id === member.id
-                        ? 'var(--color-primary)'
-                        : 'var(--color-disabled)',
-                    strokeWidth: '5px',
-                  },
-                }}
-                value={getRate(selectUser)}
-              >
-                <ProfileWrapper>
-                  <img
-                    src="https://fastly.picsum.photos/id/278/600/600.jpg?hmac=3oGo6rQo42jgkjtw1Yiow2k8Jpuf-skpQCG9-lCTVyo"
-                    alt="img"
-                  />
-                </ProfileWrapper>
-              </CircularProgressbarWithChildren>
-              <UserName selected={selectUser?.id === member.id}>
-                {member.name}
-              </UserName>
-            </MemberDiv>
+              {menu.icon} {menu.label}
+            </MenuDiv>
           ))}
-        </MemberWrapper>
-        {selectUser && (
-          <MemberDetailWrapper>
-            <DetailUserName>{selectUser.name}</DetailUserName>
-            <DetailContent>
-              <div>
-                오늘의 목표 달성률 <b>{getRate(selectUser)}%</b>
-              </div>
-              <MoreDetailButton
-                onClick={() => {
-                  setShowDetail(true);
-                }}
-              >
-                자세히 보기 {'>'}
-              </MoreDetailButton>
-            </DetailContent>
-          </MemberDetailWrapper>
-        )}
+        </MenuList>
+        {curMenu.component}
       </Content>
+      <ModalLayout
+        show={showDetail}
+        onCloseModal={() => {
+          setShowDetail(false);
+        }}
+      >
+        <UserTodo
+          close={() => {
+            setShowDetail(false);
+          }}
+          user={selectUser}
+        />
+      </ModalLayout>
     </Container>
   );
 }

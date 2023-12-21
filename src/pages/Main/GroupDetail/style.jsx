@@ -1,9 +1,10 @@
 import styled from '@emotion/styled';
-import { MainContainer } from 'layouts/MainContainer';
+import theme from 'styles/theme';
 
-export const Container = styled(MainContainer)`
-  /* width: 39.25rem; */
-  box-shadow: 2px 4px 12px rgba(0, 0, 0, 0.2);
+export const Container = styled.div`
+  width: 45rem;
+  margin-top: 3rem;
+  max-width: 90%;
   display: flex;
   flex-direction: column;
 `;
@@ -11,117 +12,82 @@ export const Container = styled(MainContainer)`
 export const Content = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 1rem;
   padding: 1rem;
 `;
 
 export const TitleDiv = styled.div`
   font-size: 1.1rem;
-  font-weight: 600;
+  font-weight: 500;
   display: flex;
   align-items: center;
   gap: 0.5rem;
   padding: 1rem;
+  color: var(--color-primary);
   cursor: pointer;
-  border-bottom: 1px solid var(--color-disabled);
 `;
 
-export const TodoWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  /* box-shadow: 2px 4px 12px rgba(0, 0, 0, 0.2); */
-  border: 1px solid var(--color-disabled);
-  gap: 0.8rem;
-  font-size: 0.9rem;
-  font-weight: 500;
-  padding: 1rem 2rem;
-  max-height: 30%;
-  overflow: auto;
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
-  &::-webkit-scrollbar {
-    display: none; /* Chrome, Safari, Opera*/
-  }
-`;
-
-export const TodayWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  font-size: 1.3rem;
-  font-weight: 600;
-  padding: 0 1rem;
-  margin-top: 0.5rem;
-`;
-
-export const MemberWrapper = styled.div`
-  display: flex;
-  column-gap: 2rem;
-  padding: 1rem 0;
-  width: 100%;
-  margin: 0 auto;
-  overflow: auto;
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
-  &::-webkit-scrollbar {
-    display: none; /* Chrome, Safari, Opera*/
-  }
-`;
-
-export const MemberDiv = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  gap: 0.8rem;
-  width: '30%';
-  cursor: pointer;
-  > div {
-    font-size: 0.9rem;
-    font-weight: 600;
-  }
-`;
-
-export const ProfileWrapper = styled.div`
-  padding: 0.5rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  & img {
+export const GroupImage = styled.div`
+  background-color: #d0d0d0;
+  width: 15rem;
+  height: 100%;
+  background: url('https://bit.ly/3e22Imq');
+  background-position: center;
+  background-repeat: no-repeat;
+  border-radius: 10px;
+  @media ${theme.device.phone} {
     width: 100%;
-    border-radius: 50%;
+    height: 10rem;
   }
 `;
 
-export const UserName = styled.div`
-  font-size: 0.75rem !important;
+export const GroupProfileWrapper = styled.div`
+  display: flex;
+  gap: 0.8rem;
+  width: 100%;
+  min-height: 13rem;
+  /* border-bottom: 1px solid var(--color-primary); */
+  /* box-shadow: 2px 4px 12px rgba(0, 0, 0, 0.1); */
+  /* border-radius: 10px; */
+  box-sizing: border-box;
+  @media ${theme.device.phone} {
+    flex-direction: column;
+  }
+`;
+
+export const GroupInfoDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 0.8rem;
+  padding: 1rem;
+  box-sizing: border-box;
+  justify-content: space-between;
+  > :first-of-type {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+`;
+
+export const MenuList = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  border-top: 1px solid var(--color-disabled);
+  margin-top: 2.5rem;
+`;
+
+export const MenuDiv = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 0.85rem;
+  font-weight: ${(props) => (props.selected ? '700' : '400')};
   color: ${(props) =>
     props.selected ? 'var(--color-primary)' : 'var(--color-disabled)'};
-  font-weight: ${(props) => (props.selected ? '800' : '600')}!important;
-`;
-
-export const MemberDetailWrapper = styled.div`
-  max-height: 20%;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  padding: 0 1rem 1rem 1rem;
-`;
-
-export const DetailUserName = styled.div`
-  font-size: 1.2rem;
-  font-weight: 700;
-`;
-
-export const DetailContent = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 0.5rem;
-`;
-
-export const MoreDetailButton = styled.div`
+  ${(props) => props.selected && 'border-top: 3px solid var(--color-primary);'};
   cursor: pointer;
-  font-size: 0.8rem;
-  font-weight: 600;
+  padding: 7px;
+  margin-top: -2px;
 `;
