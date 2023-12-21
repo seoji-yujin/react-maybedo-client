@@ -34,11 +34,7 @@ function GroupDetail() {
 
   const getRate = useCallback((user) => {
     if (!user) return 0;
-    const totalCnt = user.todoList.length;
-    const doneCnt = user.todoList.filter(
-      (todo) => todo.status === 'DONE'
-    ).length;
-    return totalCnt === 0 ? 0 : Math.floor((doneCnt / totalCnt) * 100);
+    return !user.achievement ? 0 : Math.floor(user.achievement);
   }, []);
 
   useEffect(() => {

@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 
-export const Header = styled.div`
+export const Header = styled.header`
   padding: 1rem 2rem;
   font-size: 1.5rem;
   font-weight: 500;
@@ -9,10 +9,12 @@ export const Header = styled.div`
   align-items: center;
   position: sticky;
   top: 0;
-  background-color: #fff;
+  background-color: rgba(255, 255, 255, 0.5);
   z-index: 999;
   color: var(--color-primary);
+  backdrop-filter: blur(6px);
   border-bottom: 1px solid var(--color-border);
+  grid-area: header;
   > div {
     cursor: pointer;
     display: flex;
@@ -21,7 +23,7 @@ export const Header = styled.div`
   }
 `;
 
-export const Content = styled.div`
+export const Content = styled.main`
   display: flex;
   justify-content: center;
   width: 100%;

@@ -14,12 +14,17 @@ function JoinGroupPopup({ show, onClose, group }) {
     const result = await requestJoin(group.id).catch((e) => {
       toast.error('그룹 가입에 실패하였습니다.');
     });
-    console.log(result);
-    if (result === 1) {
+    if (result === 'Already Join') {
+      toast.error('이미 가입된 그룹입니다.');
+      onClose();
+    } else if (result === 'Over Limit') {
+      toast.error('그룹 정원이 가득찼습니다.');
+      onClose();
+    } else if (result === 1) {
       toast.success('그룹에 가입하였습니다.');
       navigate(`/group/${group.id}`);
     }
-  }, [group, navigate, requestJoin]);
+  }, [group, navigate, onClose, requestJoin]);
 
   return (
     <Modal show={show} onCloseModal={onClose}>

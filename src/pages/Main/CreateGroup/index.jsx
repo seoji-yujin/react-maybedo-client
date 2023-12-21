@@ -81,7 +81,7 @@ function CreateGroup() {
       flag = false;
     } else setDescErr(false);
     // 인원
-    if (!desc.trim()) {
+    if (!limitMember || limitMember < 1) {
       setLimitMemberErr(true);
       flag = false;
     } else setLimitMemberErr(false);
@@ -206,7 +206,7 @@ function CreateGroup() {
         <FormItem isError={tagsErr} flexDirection="column">
           <label>태그</label>
           <input
-            placeholder="태그를 입력하고 엔터 키를 눌러주세요."
+            placeholder="태그를 입력하고 엔터를 눌러주세요."
             value={tag}
             onChange={onChangeTag}
             onKeyDown={onKeyDownTag}
