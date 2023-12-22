@@ -16,8 +16,9 @@ function Layout({ children }) {
     if (result === -1) {
       toast.error('로그아웃에 실패하였습니다.');
       return;
+    } else if (result === 1) {
+      navigate('/login');
     }
-    navigate('/login');
   }, [navigate, requestLogout]);
 
   return (
@@ -31,13 +32,6 @@ function Layout({ children }) {
           MAYBE :DO
         </div>
         <div>
-          <HeaderButton
-            onClick={() => {
-              navigate('/group');
-            }}
-          >
-            GROUP
-          </HeaderButton>
           <HeaderButton onClick={onClickLogoutButton}>로그아웃</HeaderButton>
         </div>
       </Header>

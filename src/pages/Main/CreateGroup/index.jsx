@@ -126,10 +126,13 @@ function CreateGroup() {
       description: desc,
       tag: tags,
     };
-    const result = await requestCreateGroup(newGroup).catch((e) => {
-      toast.error('그룹 생성에 실패하였습니다.');
-    });
-    navigate(`/group/${result.id}`);
+    requestCreateGroup(newGroup)
+      .then((res) => {
+        navigate(`/group/${res.id}`);
+      })
+      .catch((e) => {
+        toast.error('그룹 생성에 실패하였습니다.');
+      });
   };
 
   return (

@@ -15,3 +15,10 @@ export function createGroup(params) {
 export function joinGroup(gropuId) {
   return axios.post(`${PREFIX_URL}/join/${gropuId}`);
 }
+
+/**
+ * 그룹을 탈퇴한다.
+ */
+export function deleteGroup(gropuId) {
+  return axios.delete(`${PREFIX_URL}/${gropuId}`);
+}

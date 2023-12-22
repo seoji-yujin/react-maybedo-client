@@ -20,7 +20,7 @@ function JoinGroupPopup({ show, onClose, group }) {
     } else if (result === 'Over Limit') {
       toast.error('그룹 정원이 가득찼습니다.');
       onClose();
-    } else if (result === 1) {
+    } else if (result === 'Success') {
       toast.success('그룹에 가입하였습니다.');
       navigate(`/group/${group.id}`);
     }

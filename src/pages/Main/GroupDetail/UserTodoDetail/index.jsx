@@ -13,18 +13,25 @@ import {
 } from './style';
 import Todo from 'components/Todo';
 import dayjs from 'dayjs';
+import useSWR from 'swr';
+import fetcher from 'utils/fetcher';
 
 function UserTodo({ close, user }) {
   const [today, setToday] = useState(dayjs());
   const [rate, setRate] = useState(0);
+  const { data: todoList } = useSWR(
+    `/todo/${user.username}/${today.format('YYYY-MM-DD')}`,
+    fetcher
+  );
   useEffect(() => {
-    if (!user) return 0;
-    const totalCnt = user.todoList.length;
-    const doneCnt = user.todoList.filter(
-      (todo) => todo.status === 'DONE'
-    ).length;
+    if (!todoList) {
+      setRate(0);
+      return;
+    }
+    const totalCnt = todoList.length;
+    const doneCnt = todoList.filter((todo) => todo.status === 'DONE').length;
     setRate(totalCnt === 0 ? 0 : Math.floor((doneCnt / totalCnt) * 100));
-  }, [user]);
+  }, [todoList]);
 
   return (
     <Container>
@@ -55,13 +62,14 @@ function UserTodo({ close, user }) {
             <progress value={rate} max={100} />
             <div>{rate}%</div>
           </ProgressWrapper>
-          {user.todoList.map((todo, i) => (
-            <Todo
-              key={i}
-              content={todo.content}
-              done={todo.status === 'DONE'}
-            />
-          ))}
+          {todoList &&
+            todoList.map((todo, i) => (
+              <Todo
+                key={i}
+                content={todo.content}
+                done={todo.status === 'DONE'}
+              />
+            ))}
         </TodoListWrapper>
       </TodoListContainer>
     </Container>

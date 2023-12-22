@@ -16,7 +16,7 @@ export const MemberDiv = styled.div`
   box-sizing: border-box;
   width: 100%;
   border-top: 1px solid var(--color-border);
-  :first-child {
+  :first-of-type {
     border-top: none;
   }
 `;

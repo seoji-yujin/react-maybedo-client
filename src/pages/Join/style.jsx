@@ -74,7 +74,7 @@ export const ProfileInputButton = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #c9c9d7;
+  background-color: #fff;
   border: 1px solid #c6c6c6;
   bottom: 2px;
   right: 2px;

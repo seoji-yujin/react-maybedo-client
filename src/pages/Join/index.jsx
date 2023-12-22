@@ -113,9 +113,10 @@ function Join() {
     if (result === -1) {
       toast.error('회원 가입에 실패하였습니다.');
       return;
+    } else if (result >= 1) {
+      toast.success('회원 가입 되었습니다.');
+      navigate('/login');
     }
-    toast.success('회원 가입 되었습니다.');
-    navigate('/login');
   }, [validate, id, nickname, password, requestJoin, navigate]);
 
   return (

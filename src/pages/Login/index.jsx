@@ -46,9 +46,10 @@ function Login() {
     if (result === -1) {
       setErrorMsg('비밀번호가 일치하지 않습니다.');
       return;
+    } else if (result === 1) {
+      navigate('/');
+      setErrorMsg(null);
     }
-    navigate('/');
-    setErrorMsg(null);
   }, [id, navigate, password, requestLogin]);
 
   return (

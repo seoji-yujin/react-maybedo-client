@@ -3,7 +3,6 @@ import theme from 'styles/theme';
 
 export const Container = styled.div`
   width: 45rem;
-  margin-top: 3rem;
   max-width: 90%;
   display: flex;
   flex-direction: column;
@@ -21,9 +20,15 @@ export const TitleDiv = styled.div`
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  justify-content: space-between;
   padding: 1rem;
   color: var(--color-primary);
-  cursor: pointer;
+  > div {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
 `;
 
 export const GroupImage = styled.div`
@@ -90,4 +95,13 @@ export const MenuDiv = styled.div`
   cursor: pointer;
   padding: 7px;
   margin-top: -2px;
+`;
+
+export const OutButton = styled.button`
+  font-size: 0.78rem;
+  color: var(--color-textgray);
+  border: none;
+  cursor: pointer;
+  padding: 0.3rem 1rem;
+  border-radius: 20px;
 `;
