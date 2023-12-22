@@ -17,8 +17,8 @@ import { createGroup } from 'apis/group';
 import { useNavigate } from 'react-router-dom';
 import FormItem from 'components/FormItem';
 import { toast } from 'react-toastify';
-import { IoArrowBack } from 'react-icons/io5';
 import { CiCamera } from 'react-icons/ci';
+import { IoChevronBack } from 'react-icons/io5';
 
 /**
  * 그룹 생성 페이지
@@ -134,49 +134,50 @@ function CreateGroup() {
 
   return (
     <Container>
-      <TitleDiv>
-        <span
-          onClick={() => {
-            navigate(-1);
-          }}
-        >
-          <IoArrowBack />
-        </span>{' '}
+      <TitleDiv
+        onClick={() => {
+          navigate(-1);
+        }}
+      >
+        <IoChevronBack />
         그룹 생성
       </TitleDiv>
       <CreateForm>
-        <ProfileInputWrapper>
-          <ProfileImage
-            width="10"
-            height="7"
-            src={imageSrc ? imageSrc : ''}
-            onClick={clickUploadButton}
-            cursor="pointer"
-          >
-            {!imageSrc && <CiCamera size="20" />}
-          </ProfileImage>
-          {/* <ProfileInputButton onClick={clickUploadButton}>
+        <FormItem isError={nameErr} flexDirection="column">
+          <label>프로필 이미지</label>
+          <ProfileInputWrapper>
+            <ProfileImage
+              width="10"
+              height="7"
+              src={imageSrc ? imageSrc : ''}
+              onClick={clickUploadButton}
+              cursor="pointer"
+            >
+              {!imageSrc && <CiCamera size="20" />}
+            </ProfileImage>
+            {/* <ProfileInputButton onClick={clickUploadButton}>
             <CiCamera />
           </ProfileInputButton> */}
-          <input
-            type="file"
-            id="image"
-            accept="image/*"
-            ref={fileInput}
-            onChange={(e) => {
-              const selectedFile = e.target.files && e.target.files[0];
-              if (
-                selectedFile?.type === 'image/png' ||
-                selectedFile?.type === 'image/jpeg' ||
-                selectedFile?.type === 'image/jpg'
-              ) {
-                encodeFileToBase64(selectedFile);
-              } else {
-                toast.error('png, jpg, jpeg 파일만 업로드할 수 있습니다.');
-              }
-            }}
-          />
-        </ProfileInputWrapper>
+            <input
+              type="file"
+              id="image"
+              accept="image/*"
+              ref={fileInput}
+              onChange={(e) => {
+                const selectedFile = e.target.files && e.target.files[0];
+                if (
+                  selectedFile?.type === 'image/png' ||
+                  selectedFile?.type === 'image/jpeg' ||
+                  selectedFile?.type === 'image/jpg'
+                ) {
+                  encodeFileToBase64(selectedFile);
+                } else {
+                  toast.error('png, jpg, jpeg 파일만 업로드할 수 있습니다.');
+                }
+              }}
+            />
+          </ProfileInputWrapper>
+        </FormItem>
         <FormItem isError={nameErr} flexDirection="column">
           <label>그룹 이름</label>
           <input

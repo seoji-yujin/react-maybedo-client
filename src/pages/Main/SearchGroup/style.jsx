@@ -69,20 +69,6 @@ export const GroupListWrapper = styled.div`
   row-gap: 1.5rem;
   justify-content: space-between;
   /* background-color: white; */
-  &::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 30px;
-    /* backdrop-filter: blur(10px); */
-    background: linear-gradient(
-      180deg,
-      rgba(255, 255, 255, 0) 0%,
-      rgba(255, 255, 255, 0.7) 100%
-    );
-  }
 `;
 
 export const SearchButton = styled.div`

@@ -6,7 +6,7 @@ export const Container = styled(MainContainer)`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 4rem;
+  gap: 2rem;
   position: relative;
   overflow: scroll;
   height: auto;
@@ -14,23 +14,20 @@ export const Container = styled(MainContainer)`
 `;
 
 export const TitleDiv = styled.div`
-  text-align: center;
-  font-size: 1.75rem;
-  font-weight: 700;
+  font-size: 1.1rem;
+  font-weight: 500;
   color: var(--color-primary);
-  > span {
-    position: absolute;
-    cursor: pointer;
-    left: 0;
-    top: 5px;
-  }
+  display: flex;
+  align-items: center;
+  width: 100%;
+  gap: 1rem;
+  cursor: pointer;
 `;
 
 export const ProfileInputWrapper = styled.div`
   position: relative;
   display: flex;
   align-items: center;
-  justify-content: center;
   > input {
     display: none;
   }
@@ -72,6 +69,7 @@ export const Button = styled.button`
   cursor: pointer;
   background-color: var(--color-primary);
   color: #fff;
+  margin-top: 2rem;
 `;
 
 export const NameTagWrapper = styled.div`
@@ -115,10 +113,10 @@ export const ProfileImage = styled.div`
   ${(props) => props.height && `height: ${props.height}rem`};
   border-radius: 10px;
   background-image: url(${(props) => props.src});
-  background-size: contain;
+  background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
-  background-color: #f0f0f0;
+  background-color: #c9c9d7;
   display: flex;
   align-items: center;
   justify-content: center;

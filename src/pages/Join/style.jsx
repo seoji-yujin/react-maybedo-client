@@ -12,17 +12,14 @@ export const Container = styled.div`
 `;
 
 export const TitleDiv = styled.div`
-  font-size: 1.75rem;
-  font-weight: 700;
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: var(--color-primary);
   display: flex;
   align-items: center;
-  color: var(--color-primary);
-  > span {
-    position: absolute;
-    cursor: pointer;
-    left: 0;
-    top: 2px;
-  }
+  width: 100%;
+  gap: 1rem;
+  cursor: pointer;
 `;
 
 export const FormDiv = styled.div`
@@ -77,7 +74,7 @@ export const ProfileInputButton = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #fff;
+  background-color: #c9c9d7;
   border: 1px solid #c6c6c6;
   bottom: 2px;
   right: 2px;

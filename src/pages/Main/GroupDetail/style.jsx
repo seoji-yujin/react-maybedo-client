@@ -44,7 +44,7 @@ export const GroupProfileWrapper = styled.div`
   display: flex;
   gap: 0.8rem;
   width: 100%;
-  min-height: 13rem;
+  min-height: 10rem;
   /* border-bottom: 1px solid var(--color-primary); */
   /* box-shadow: 2px 4px 12px rgba(0, 0, 0, 0.1); */
   /* border-radius: 10px; */

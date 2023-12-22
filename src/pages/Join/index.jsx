@@ -18,6 +18,7 @@ import useRequest from 'hooks/useRequest';
 import { join } from 'apis/member';
 import { useNavigate } from 'react-router-dom';
 import { IoArrowBack } from 'react-icons/io5';
+import { IoChevronBack } from 'react-icons/io5';
 
 function Join() {
   const [id, onChangeId] = useInput('');
@@ -119,14 +120,12 @@ function Join() {
 
   return (
     <Container>
-      <TitleDiv>
-        <span
-          onClick={() => {
-            navigate(-1);
-          }}
-        >
-          <IoArrowBack />
-        </span>
+      <TitleDiv
+        onClick={() => {
+          navigate(-1);
+        }}
+      >
+        <IoChevronBack />
         회원가입
       </TitleDiv>
       <FormDiv>

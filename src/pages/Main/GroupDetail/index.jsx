@@ -24,7 +24,6 @@ import { BsPersonFill, BsPerson } from 'react-icons/bs';
 import { IoCalendarClear, IoGridOutline } from 'react-icons/io5';
 import GroupMembers from './GroupMembers';
 import GroupInfo from './GroupInfo';
-import Modal from 'layouts/Modal';
 import ModalLayout from 'layouts/ModalLayout';
 
 function GroupDetail() {
@@ -68,7 +67,7 @@ function GroupDetail() {
     <Container>
       <TitleDiv
         onClick={() => {
-          navigate(-1);
+          navigate('/group');
         }}
       >
         <IoChevronBack />
