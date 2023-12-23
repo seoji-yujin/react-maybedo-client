@@ -37,13 +37,20 @@ export const TodoListContainer = styled.div`
 `;
 
 export const TitleWrapper = styled.div`
+  border-bottom: 1px solid var(--color-disabled);
   display: flex;
   align-items: center;
-  gap: 1rem;
-  font-size: 1rem;
-  font-weight: 500;
+  justify-content: space-between;
+  padding: 1.5rem 0.9rem;
+  font-size: 1.2rem;
+  font-weight: 600;
+  background-color: white;
   color: var(--color-primary);
-  cursor: pointer;
+  position: sticky;
+  top: 0;
+  > span {
+    cursor: pointer;
+  }
 `;
 
 export const ProgressWrapper = styled.div`
