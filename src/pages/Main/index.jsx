@@ -1,5 +1,4 @@
 import React from 'react';
-import Layout from 'layouts/Layout';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { MenuDiv, MenuWrapper } from './style';
 
@@ -8,7 +7,7 @@ function Main() {
   const navigate = useNavigate();
 
   return (
-    <Layout>
+    <>
       <MenuWrapper>
         <MenuDiv
           onClick={() => {
@@ -28,7 +27,7 @@ function Main() {
         </MenuDiv>
       </MenuWrapper>
       <Outlet />
-    </Layout>
+    </>
   );
 }
 

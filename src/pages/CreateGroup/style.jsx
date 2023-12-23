@@ -11,6 +11,7 @@ export const Container = styled(MainContainer)`
   overflow: scroll;
   height: auto;
   padding-bottom: 5rem;
+  margin-top: 2rem;
 `;
 
 export const TitleDiv = styled.div`

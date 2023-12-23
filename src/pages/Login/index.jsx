@@ -17,9 +17,12 @@ import useInput from 'hooks/useInput';
 import { useNavigate } from 'react-router-dom';
 import useRequest from 'hooks/useRequest';
 import { login } from 'apis/member';
+import useSWR from 'swr';
+import fetcher from 'utils/fetcher';
 
 function Login() {
   const navigate = useNavigate();
+  const { mutate: mutateLoginUser } = useSWR('/member/inform', fetcher);
   const [id, onChangeId] = useInput('');
   const [password, onChangePassword] = useInput('');
   const [errorMsg, setErrorMsg] = useState(null);
@@ -47,10 +50,11 @@ function Login() {
       setErrorMsg('비밀번호가 일치하지 않습니다.');
       return;
     } else if (result === 1) {
+      mutateLoginUser();
       navigate('/');
       setErrorMsg(null);
     }
-  }, [id, navigate, password, requestLogin]);
+  }, [id, mutateLoginUser, navigate, password, requestLogin]);
 
   return (
     <Container>

@@ -1,5 +1,4 @@
 import React from 'react';
-import { TodoListWrapper } from '../../TodoList/style';
 import {
   // ProgressWrapper,
   Container,
@@ -10,6 +9,7 @@ import Todo from 'components/Todo';
 import dayjs from 'dayjs';
 import useSWR from 'swr';
 import fetcher from 'utils/fetcher';
+import { TodoListWrapper } from 'pages/Main/TodoList/style';
 
 function UserTodo({ close, user }) {
   // const [rate, setRate] = useState(0);
