@@ -23,7 +23,7 @@ export const HeaderButton = styled.div`
   cursor: pointer;
   padding: 0.3rem 0.5rem;
   border: 1px solid var(--color-primary);
-  border-radius: 10px;
+  border-radius: 8px;
   font-weight: 500;
   display: flex;
   align-items: center;

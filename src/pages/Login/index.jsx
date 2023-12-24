@@ -60,14 +60,18 @@ function Login() {
     <Container>
       <div>
         <LogoDiv>MAYBE :DO</LogoDiv>
-        <Form
-          onSubmit={(e) => {
-            e.preventDefault();
-            onClickLoginButton();
-          }}
-        >
+        <Form>
           <FormItem>
-            <input placeholder="아이디" value={id} onChange={onChangeId} />
+            <input
+              placeholder="아이디"
+              value={id}
+              onChange={onChangeId}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') {
+                  onClickLoginButton();
+                }
+              }}
+            />
           </FormItem>
           <FormItem>
             <input
@@ -75,6 +79,11 @@ function Login() {
               type="password"
               value={password}
               onChange={onChangePassword}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') {
+                  onClickLoginButton();
+                }
+              }}
             />
           </FormItem>
           {errorMsg && <ErrorMsg>{errorMsg}</ErrorMsg>}
