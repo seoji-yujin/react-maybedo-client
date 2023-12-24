@@ -105,6 +105,7 @@ function Join() {
     const userInfo = {
       username: id,
       name: nickname,
+      email: email,
       password,
     };
     const result = await requestJoin(userInfo).catch((e) => {
@@ -117,7 +118,7 @@ function Join() {
       toast.success('회원 가입 되었습니다.');
       navigate('/login');
     }
-  }, [validate, id, nickname, password, requestJoin, navigate]);
+  }, [validate, id, nickname, email, password, requestJoin, navigate]);
 
   return (
     <Container>
@@ -166,6 +167,9 @@ function Join() {
         </ProfileInputWrapper>
         <FormItem flexDirection="column" error={idErrorMsg !== null}>
           <label>아이디</label>
+          <FormItemDescDiv>
+            다른 유저와 겹치지 않도록 입력해주세요.
+          </FormItemDescDiv>
           <input
             placeholder="아이디를 입력해주세요"
             value={id}
@@ -184,9 +188,6 @@ function Join() {
         </FormItem>
         <FormItem flexDirection="column" error={nicknameErrorMsg !== null}>
           <label>닉네임</label>
-          <FormItemDescDiv>
-            다른 유저와 겹치지 않도록 입력해주세요.
-          </FormItemDescDiv>
           <input
             placeholder="닉네임"
             value={nickname}

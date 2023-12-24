@@ -9,7 +9,6 @@ export const Container = styled(MainContainer)`
   margin-top: 1rem;
   height: 80vh;
   width: 45rem;
-  margin-top: 2rem;
   /* background-color: #fefefe; */
   /* box-shadow: 2px 4px 12px rgba(0, 0, 0, 0.2); */
 `;

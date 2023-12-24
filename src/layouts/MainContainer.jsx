@@ -3,7 +3,7 @@ import theme from 'styles/theme';
 
 export const MainContainer = styled.div`
   width: 29.25rem;
-  /* margin-top: 3rem; */
+  margin-top: 1rem;
   max-width: 90%;
   height: 70vh;
   position: relative;

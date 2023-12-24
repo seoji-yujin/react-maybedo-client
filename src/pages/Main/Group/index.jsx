@@ -22,7 +22,7 @@ function Group() {
   return (
     <Container>
       <HeaderWrapper>
-        <div>GROUPS</div>
+        <TotalGroupDiv>{groups.length}개의 그룹에 참여중이에요</TotalGroupDiv>
         <SearchButton
           onClick={() => {
             navigate('/group/search');
@@ -32,7 +32,6 @@ function Group() {
         </SearchButton>
       </HeaderWrapper>
       <GroupListWrapper>
-        <TotalGroupDiv>{groups.length}개의 그룹에 참여중이에요</TotalGroupDiv>
         {groups.map((group, i) => (
           <GroupInfo
             key={i}

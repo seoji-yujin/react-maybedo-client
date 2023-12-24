@@ -21,3 +21,10 @@ export function logout() {
 export function join(userInfo) {
   return axios.post(`${PREFIX_URL}/join`, userInfo);
 }
+
+/**
+ * 회원 정보를 수정한다.
+ */
+export function updateUserInfo(userInfo) {
+  return axios.put(`${PREFIX_URL}/update`, userInfo);
+}

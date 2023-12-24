@@ -4,7 +4,7 @@ export const MenuWrapper = styled.div`
   display: flex;
   gap: 2rem !important;
   justify-content: center;
-  margin: 2rem 0;
+  margin: 2rem 0 1rem 0;
 `;
 
 export const MenuDiv = styled.div`

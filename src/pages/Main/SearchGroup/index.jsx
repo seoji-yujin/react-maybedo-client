@@ -57,7 +57,7 @@ function SearchGroup() {
   return (
     <Container>
       <HeaderWrapper>
-        <div>GROUPS</div>
+        <div />
         <SearchButton
           onClick={() => {
             navigate('/group');
