@@ -33,8 +33,8 @@ export const ProfileWrapper = styled.div`
   position: relative;
   margin-right: 1rem;
   & img {
-    width: 4rem;
-    height: 4rem;
+    width: 3.5rem;
+    height: 3.5rem;
     border-radius: 50%;
   }
 `;
@@ -88,4 +88,13 @@ export const ProgressWrapper = styled.div`
     font-size: 0.9rem;
     color: var(--color-primary);
   }
+`;
+export const TitleDiv = styled.div`
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--color-primary);
+  display: flex;
+  gap: 0.7rem;
+  align-items: end;
+  margin-bottom: 1rem;
 `;

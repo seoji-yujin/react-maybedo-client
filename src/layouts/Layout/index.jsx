@@ -48,7 +48,7 @@ function Layout({ children }) {
               e.stopPropagation();
             }}
           >
-            {loginUser.name} 님
+            {loginUser.name}
             <ProfileImage
               width="2"
               height="2"

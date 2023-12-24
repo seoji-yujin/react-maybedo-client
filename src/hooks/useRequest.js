@@ -1,8 +1,8 @@
 const useRequest = (axiosRequest) => {
-  const requestData = (params) => {
+  const requestData = (...params) => {
     return new Promise(async (resolve, reject) => {
       try {
-        const res = await axiosRequest(params);
+        const res = await axiosRequest(...params);
         const { data } = res;
         if (data.status === 200) {
           if (data.data) {

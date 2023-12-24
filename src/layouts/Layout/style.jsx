@@ -18,9 +18,6 @@ export const Header = styled.header`
   gap: 0.5rem;
   > div {
     cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 1rem;
   }
 `;
 
@@ -41,7 +38,7 @@ export const HeaderButton = styled.div`
 export const UserInfo = styled.div`
   display: flex;
   align-items: center;
-  gap: 0.3rem;
+  gap: 0.5rem;
   font-size: 1rem;
   font-weight: 400;
 `;

@@ -18,6 +18,7 @@ import useSWR from 'swr';
 import fetcher from 'utils/fetcher';
 import useRequest from 'hooks/useRequest';
 import { createTodo, toggleTodo, deleteTodo } from 'apis/todo';
+import { toast } from 'react-toastify';
 
 const TODO = 'todo';
 const MEMO = 'memo';
@@ -35,7 +36,7 @@ function TodoList() {
 
   const requestAddTodo = useRequest(createTodo);
   const addTodos = useCallback(
-    async (e) => {
+    (e) => {
       if (isComposing) return;
       if (e.key !== 'Enter') return;
       if (isEmpty(inputTodo.trim())) return;
@@ -44,32 +45,41 @@ function TodoList() {
         content: inputTodo.trim(),
         date: dayjs(today).format('YYYY-MM-DD'),
       };
-      await requestAddTodo(newTodo).catch((e) => {
-        console.error(e);
-      });
-      mutate();
+      requestAddTodo(newTodo)
+        .then(() => {
+          mutate();
+        })
+        .catch(() => {
+          toast.error('투두를 추가하지 못하였습니다.');
+        });
     },
     [isComposing, inputTodo, setInputTodo, today, requestAddTodo, mutate]
   );
 
   const requestDelTodo = useRequest(deleteTodo);
   const deleteTodoProc = useCallback(
-    async (id) => {
-      await requestDelTodo(id).catch((e) => {
-        console.error(e);
-      });
-      mutate();
+    (id) => {
+      requestDelTodo(id)
+        .then(() => {
+          mutate();
+        })
+        .catch(() => {
+          toast.error('투두를 삭제하지 못하였습니다.');
+        });
     },
     [mutate, requestDelTodo]
   );
 
   const requsetDoneTodo = useRequest(toggleTodo);
   const doneTodo = useCallback(
-    async (id) => {
-      await requsetDoneTodo(id).catch((e) => {
-        console.error(e);
-      });
-      mutate();
+    (id) => {
+      requsetDoneTodo(id)
+        .then(() => {
+          mutate();
+        })
+        .catch(() => {
+          toast.error('투두를 완료하지 못하였습니다.');
+        });
     },
     [mutate, requsetDoneTodo]
   );

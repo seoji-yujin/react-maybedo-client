@@ -13,6 +13,7 @@ export const TodoText = styled.div`
   font-weight: 500;
   flex-grow: 1;
   color: var(--color-primary);
+  text-align: start;
   ${(props) => props.done && 'text-decoration: line-through'};
   ${(props) => props.done && 'color: var(--color-disabled)'};
 `;

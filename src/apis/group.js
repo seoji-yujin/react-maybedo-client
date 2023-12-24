@@ -22,3 +22,24 @@ export function joinGroup(gropuId) {
 export function deleteGroup(gropuId) {
   return axios.delete(`${PREFIX_URL}/${gropuId}`);
 }
+
+/**
+ * 그룹 공지를 작성한다.
+ */
+export function createGroupNotice(groupId, params) {
+  return axios.post(`${PREFIX_URL}/${groupId}/notice`, params);
+}
+
+/**
+ * 그룹 공지를 수정한다.
+ */
+export function updateGroupNotice(groupId, noticeId, params) {
+  return axios.put(`${PREFIX_URL}/${groupId}/notice/${noticeId}`, params);
+}
+
+/**
+ * 그룹 공지를 삭제한다.
+ */
+export function deleteGroupNotice(groupId, noticeId) {
+  return axios.delete(`${PREFIX_URL}/${groupId}/notice/${noticeId}`);
+}

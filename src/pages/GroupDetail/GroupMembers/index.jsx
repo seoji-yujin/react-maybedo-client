@@ -6,6 +6,7 @@ import {
   UserName,
   ProgressWrapper,
   UserInfo,
+  TitleDiv,
 } from './style';
 import useSWR from 'swr';
 import fetcher from 'utils/fetcher';
@@ -25,6 +26,7 @@ function GroupMembers({ groupId, setUser, setShowDetail }) {
 
   return (
     <div>
+      <TitleDiv>👩🏻‍💻 그룹원</TitleDiv>
       <MemberWrapper>
         {memberInfo.map((member) => (
           <MemberDiv

@@ -7,6 +7,7 @@ import { isEmpty } from 'lodash';
 import { TodoListWrapper, TodoInput } from '../style';
 import Memo from 'components/Memo';
 import { createMemo, deleteMemo, updateMemo } from 'apis/maybedo';
+import { toast } from 'react-toastify';
 
 function MemoList() {
   const [inputMemo, onChangeInputMemo, setInputMemo] = useInput('');
@@ -17,7 +18,7 @@ function MemoList() {
   const requestAddMemo = useRequest(createMemo);
   const requestUpdateMemo = useRequest(updateMemo);
   const addMemo = useCallback(
-    async (e) => {
+    (e) => {
       if (isComposing) return;
       if (e.key !== 'Enter') return;
       if (isEmpty(inputMemo.trim())) return;
@@ -26,17 +27,25 @@ function MemoList() {
         content: inputMemo.trim(),
       };
       if (editId === -1) {
-        await requestAddMemo(newTodo).catch((e) => {
-          console.error(e);
-        });
+        requestAddMemo(newTodo)
+          .then(() => {
+            setInputMemo('');
+            mutate();
+          })
+          .catch(() => {
+            toast.error('메모를 추가하지 못하였습니다.');
+          });
       } else {
-        await requestUpdateMemo({ id: editId, params: newTodo }).catch((e) => {
-          console.error(e);
-        });
-        setEditId(-1);
+        requestUpdateMemo({ id: editId, params: newTodo })
+          .then(() => {
+            setInputMemo('');
+            mutate();
+            setEditId(-1);
+          })
+          .catch(() => {
+            toast.error('메모를 수정하지 못하였습니다.');
+          });
       }
-      setInputMemo('');
-      mutate();
     },
     [
       isComposing,
@@ -51,12 +60,15 @@ function MemoList() {
 
   const requestDelMemo = useRequest(deleteMemo);
   const deleteMemoProc = useCallback(
-    async (id) => {
-      await requestDelMemo(id).catch((e) => {
-        console.error(e);
-      });
-      mutate();
-      if (editId >= 0) setInputMemo('');
+    (id) => {
+      requestDelMemo(id)
+        .then(() => {
+          mutate();
+          if (editId >= 0) setInputMemo('');
+        })
+        .catch(() => {
+          toast.error('메모를 수정하지 못하였습니다.');
+        });
     },
     [editId, mutate, requestDelMemo, setInputMemo]
   );
