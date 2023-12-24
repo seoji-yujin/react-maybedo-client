@@ -35,7 +35,6 @@ export const TitleDiv = styled.div`
 export const GroupImage = styled.div`
   background-color: #d0d0d0;
   width: 15rem;
-  height: 100%;
   background: url('https://bit.ly/3e22Imq');
   background-position: center;
   background-repeat: no-repeat;
