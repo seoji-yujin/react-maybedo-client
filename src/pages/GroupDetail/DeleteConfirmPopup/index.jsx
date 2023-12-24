@@ -6,7 +6,7 @@ function DeleteConfirmPopup({ show, onClose, groupName, confirmCallback }) {
   return (
     <Modal show={show} onCloseModal={onClose}>
       <GroupInfoDiv>
-        <div>[{groupName}]</div>그룹에서 탈퇴하시겠습니까?
+        <div>[{groupName}]</div>그룹에서 나가시겠습니까?
       </GroupInfoDiv>
       <ButtonWrapper>
         <ButtonDiv onClick={confirmCallback} primary>

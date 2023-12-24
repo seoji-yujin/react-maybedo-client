@@ -201,10 +201,10 @@ function CreateGroup() {
         <FormItem isError={descErr} textareaHeight="3" flexDirection="column">
           <label>그룹 설명</label>
           <textarea
-            placeholder="50자 내외로 작성해주세요"
+            placeholder="90자 내외로 작성해주세요"
             value={desc}
             onChange={onChangeDesc}
-            maxLength={50}
+            maxLength={90}
           />
         </FormItem>
         <FormItem isError={tagsErr} flexDirection="column">
