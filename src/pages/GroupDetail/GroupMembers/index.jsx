@@ -11,6 +11,8 @@ import {
 import useSWR from 'swr';
 import fetcher from 'utils/fetcher';
 import { IoChevronForward } from 'react-icons/io5';
+import ProfileImage from 'components/ProfileImage';
+import { API_URL } from 'utils/constant';
 
 function GroupMembers({ groupId, setUser, setShowDetail }) {
   const { data: memberInfo } = useSWR(`/group/members/${groupId}`, fetcher);
@@ -37,9 +39,13 @@ function GroupMembers({ groupId, setUser, setShowDetail }) {
             }}
           >
             <ProfileWrapper>
-              <img
-                src="https://fastly.picsum.photos/id/278/600/600.jpg?hmac=3oGo6rQo42jgkjtw1Yiow2k8Jpuf-skpQCG9-lCTVyo"
-                alt="img"
+              <ProfileImage
+                width="3.5"
+                height="3.5"
+                src={`${
+                  member.imagePath ? `${API_URL}/${member.imagePath}` : ''
+                }`}
+                cursor="default"
               />
             </ProfileWrapper>
             <UserInfo>

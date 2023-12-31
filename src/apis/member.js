@@ -18,13 +18,15 @@ export function logout() {
 /**
  * 회원가입 한다.
  */
-export function join(userInfo) {
-  return axios.post(`${PREFIX_URL}/join`, userInfo);
+export function join(formData) {
+  const headers = { 'Content-Type': 'multipart/form-data' };
+  return axios.post(`${PREFIX_URL}/join`, formData, headers);
 }
 
 /**
  * 회원 정보를 수정한다.
  */
-export function updateUserInfo(userInfo) {
-  return axios.put(`${PREFIX_URL}/update`, userInfo);
+export function updateUserInfo(formData) {
+  const headers = { 'Content-Type': 'multipart/form-data' };
+  return axios.put(`${PREFIX_URL}/update`, formData, headers);
 }

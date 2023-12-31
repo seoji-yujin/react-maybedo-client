@@ -7,7 +7,6 @@ import {
   NameTagWrapper,
   NameTagDiv,
   ProfileInputWrapper,
-  ProfileInputButton,
   ProfileImage,
 } from './style';
 import useInput from 'hooks/useInput';
@@ -30,6 +29,7 @@ function CreateGroup() {
   const [tags, setTags] = useState([]); // 태그 목록
   const [tag, onChangeTag, setTag] = useInput(''); // 입력한 태그 이름
   const [profileImage, setProfileImage] = useState(null); // 프로필 사진
+  const [imageFile, setImageFile] = useState(null); // 프로필 이미지 파일
 
   // 유효성 결과 변수들
   const [nameErr, setNameErr] = useState(false);
@@ -93,16 +93,15 @@ function CreateGroup() {
     return flag;
   };
 
-  const [imageSrc, setImageSrc] = useState('');
-  const encodeFileToBase64 = (fileBlob) => {
+  const imageFileUpload = (fileBlob) => {
     const reader = new FileReader();
     reader.readAsDataURL(fileBlob);
-    setProfileImage(fileBlob);
+    setImageFile(fileBlob);
 
     return new Promise((resolve) => {
       reader.onload = () => {
         if (typeof reader.result === 'string') {
-          setImageSrc(reader.result);
+          setProfileImage(reader.result);
         }
         resolve();
       };
@@ -120,13 +119,14 @@ function CreateGroup() {
   // 생성 버튼 클릭
   const onClickCreateButton = async () => {
     if (!validateForm()) return;
-    const newGroup = {
-      name,
-      limitMember,
-      description: desc,
-      tag: tags,
-    };
-    requestCreateGroup(newGroup)
+
+    const formData = new FormData();
+    formData.append('name', name);
+    formData.append('limit_member', limitMember);
+    formData.append('description', desc);
+    formData.append('tag', tags);
+    formData.append('image_file', imageFile);
+    requestCreateGroup(formData)
       .then((res) => {
         navigate(`/group/${res.id}`);
       })
@@ -152,15 +152,12 @@ function CreateGroup() {
             <ProfileImage
               width="10"
               height="7"
-              src={imageSrc ? imageSrc : ''}
+              src={`${profileImage ? `${profileImage}` : ''}`}
               onClick={clickUploadButton}
               cursor="pointer"
             >
-              {!imageSrc && <CiCamera size="20" />}
+              {!profileImage && <CiCamera size="20" />}
             </ProfileImage>
-            {/* <ProfileInputButton onClick={clickUploadButton}>
-            <CiCamera />
-          </ProfileInputButton> */}
             <input
               type="file"
               id="image"
@@ -173,7 +170,7 @@ function CreateGroup() {
                   selectedFile?.type === 'image/jpeg' ||
                   selectedFile?.type === 'image/jpg'
                 ) {
-                  encodeFileToBase64(selectedFile);
+                  imageFileUpload(selectedFile);
                 } else {
                   toast.error('png, jpg, jpeg 파일만 업로드할 수 있습니다.');
                 }

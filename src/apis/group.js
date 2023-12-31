@@ -5,8 +5,9 @@ const PREFIX_URL = '/group';
 /**
  * 그룹을 생성한다.
  */
-export function createGroup(params) {
-  return axios.post(`${PREFIX_URL}/create`, params);
+export function createGroup(formData) {
+  const headers = { 'Content-Type': 'multipart/form-data' };
+  return axios.post(`${PREFIX_URL}/create`, formData, headers);
 }
 
 /**

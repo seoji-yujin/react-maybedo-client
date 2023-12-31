@@ -19,6 +19,7 @@ import { toast } from 'react-toastify';
 import { ProfileInputButton, ProfileInputWrapper } from 'pages/Join/style';
 import useRequest from 'hooks/useRequest';
 import { updateUserInfo } from 'apis/member';
+import { API_URL } from 'utils/constant';
 
 function MyPage() {
   const { data: loginUser, mutate: mutateLoginUser } = useSWR(
@@ -32,12 +33,13 @@ function MyPage() {
   const [editMode, setEditMode] = useState(false);
   const [email, onChangeEmail, setEmail] = useInput('');
   const [nickname, onChangeNickname, setNickname] = useInput('');
+  const [imageFile, setImageFile] = useState(null);
 
   const [profileImage, setProfileImage] = useState(null);
-  const encodeFileToBase64 = (fileBlob) => {
+  const imageFileUpload = (fileBlob) => {
     const reader = new FileReader();
     reader.readAsDataURL(fileBlob);
-    setProfileImage(fileBlob);
+    setImageFile(fileBlob);
 
     return new Promise((resolve) => {
       reader.onload = () => {
@@ -59,7 +61,7 @@ function MyPage() {
     if (!userInfo) return;
     setEmail(userInfo.email || '');
     setNickname(userInfo.name || '');
-    setProfileImage(userInfo.image);
+    setProfileImage(userInfo.imagePath);
   }, [setEmail, setNickname, userInfo]);
 
   const requestUpdate = useRequest(updateUserInfo);
@@ -69,7 +71,7 @@ function MyPage() {
       name: userInfo?.name,
     };
     const regexEmail =
-      /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
+      /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
     if (email && email.trim()) {
       if (!regexEmail.test(email.trim())) {
         toast.error('유효하지 않은 이메일 형식 입니다.');
@@ -80,7 +82,13 @@ function MyPage() {
     if (nickname && nickname.trim()) {
       newUserInfo.name = nickname;
     }
-    requestUpdate(newUserInfo)
+    const formData = new FormData();
+    formData.append('name', nickname);
+    formData.append('email', email);
+    if (imageFile) {
+      formData.append('image_file', imageFile);
+    }
+    requestUpdate(formData)
       .then(() => {
         mutateUserInfo();
         mutateLoginUser();
@@ -91,6 +99,7 @@ function MyPage() {
       });
   }, [
     email,
+    imageFile,
     mutateLoginUser,
     mutateUserInfo,
     nickname,
@@ -108,6 +117,8 @@ function MyPage() {
             <HeaderButton
               onClick={() => {
                 setEditMode((prev) => !prev);
+                setProfileImage(userInfo.imagePath);
+                setImageFile(null);
               }}
             >
               취소
@@ -115,6 +126,7 @@ function MyPage() {
             <HeaderButton
               onClick={() => {
                 updateUserInfoProc();
+                setImageFile(null);
               }}
             >
               완료
@@ -125,6 +137,7 @@ function MyPage() {
           <HeaderButton
             onClick={() => {
               setEditMode((prev) => !prev);
+              setImageFile(null);
             }}
           >
             수정
@@ -138,7 +151,13 @@ function MyPage() {
             <ProfileImage
               width="4"
               height="4"
-              src={`${profileImage ? profileImage : ''}`}
+              src={`${
+                profileImage
+                  ? editMode && imageFile
+                    ? `${profileImage}`
+                    : `${API_URL}/${profileImage}`
+                  : ''
+              }`}
               onClick={() => {
                 if (editMode) clickUploadButton();
               }}
@@ -161,7 +180,7 @@ function MyPage() {
                       selectedFile?.type === 'image/jpeg' ||
                       selectedFile?.type === 'image/jpg'
                     ) {
-                      encodeFileToBase64(selectedFile);
+                      imageFileUpload(selectedFile);
                     } else {
                       toast.error(
                         'png, jpg, jpeg 파일만 업로드할 수 있습니다.'

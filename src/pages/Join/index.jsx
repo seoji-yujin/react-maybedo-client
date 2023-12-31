@@ -17,7 +17,6 @@ import { CiCamera } from 'react-icons/ci';
 import useRequest from 'hooks/useRequest';
 import { join } from 'apis/member';
 import { useNavigate } from 'react-router-dom';
-import { IoArrowBack } from 'react-icons/io5';
 import { IoChevronBack } from 'react-icons/io5';
 
 function Join() {
@@ -31,19 +30,19 @@ function Join() {
   const [emailErrorMsg, setEmailErrorMsg] = useState(null);
   const [nicknameErrorMsg, setNicknameErrorMsg] = useState(null);
   const [passwordErrorMsg, setPasswordErrorMsg] = useState(null);
+  const [imageFile, setImageFile] = useState(null);
 
   const navigate = useNavigate();
 
-  const [imageSrc, setImageSrc] = useState('');
-  const encodeFileToBase64 = (fileBlob) => {
+  const imageFileUpload = (fileBlob) => {
     const reader = new FileReader();
     reader.readAsDataURL(fileBlob);
-    setProfileImage(fileBlob);
+    setImageFile(fileBlob);
 
     return new Promise((resolve) => {
       reader.onload = () => {
         if (typeof reader.result === 'string') {
-          setImageSrc(reader.result);
+          setProfileImage(reader.result);
         }
         resolve();
       };
@@ -67,7 +66,7 @@ function Join() {
       setEmailErrorMsg('이메일을 입력해주세요.');
     } else {
       const regexEmail =
-        /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
+        /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
       if (!regexEmail.test(email.trim())) {
         valid = false;
         setEmailErrorMsg('유효하지 않은 이메일 형식 입니다.');
@@ -102,23 +101,34 @@ function Join() {
   const requestJoin = useRequest(join);
   const onClickJoinButton = useCallback(async () => {
     if (!validate()) return;
-    const userInfo = {
-      username: id,
-      name: nickname,
-      email: email,
-      password,
-    };
-    const result = await requestJoin(userInfo).catch((e) => {
+    const formData = new FormData();
+    formData.append('username', id);
+    formData.append('name', nickname);
+    formData.append('email', email);
+    formData.append('password', password);
+    formData.append('image_file', imageFile);
+    try {
+      const result = await requestJoin(formData);
+      if (result === -1) {
+        toast.error('회원 가입에 실패하였습니다.');
+        return;
+      } else if (result >= 1) {
+        toast.success('회원 가입 되었습니다.');
+        navigate('/login');
+      }
+    } catch {
       toast.error('회원 가입에 실패하였습니다.');
-    });
-    if (result === -1) {
-      toast.error('회원 가입에 실패하였습니다.');
-      return;
-    } else if (result >= 1) {
-      toast.success('회원 가입 되었습니다.');
-      navigate('/login');
     }
-  }, [validate, id, nickname, email, password, requestJoin, navigate]);
+  }, [
+    validate,
+    id,
+    nickname,
+    email,
+    password,
+    imageFile,
+    requestJoin,
+    navigate,
+  ]);
 
   return (
     <Container>
@@ -135,11 +145,7 @@ function Join() {
           <ProfileImage
             width="5"
             height="5"
-            src={
-              imageSrc
-                ? imageSrc
-                : 'https://static.solved.ac/misc/360x360/default_profile.png'
-            }
+            src={`${profileImage ? `${profileImage}` : ''}`}
             onClick={clickUploadButton}
             cursor="pointer"
           />
@@ -158,7 +164,7 @@ function Join() {
                 selectedFile?.type === 'image/jpeg' ||
                 selectedFile?.type === 'image/jpg'
               ) {
-                encodeFileToBase64(selectedFile);
+                imageFileUpload(selectedFile);
               } else {
                 toast.error('png, jpg, jpeg 파일만 업로드할 수 있습니다.');
               }

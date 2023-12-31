@@ -32,11 +32,6 @@ export const UserInfo = styled.div`
 export const ProfileWrapper = styled.div`
   position: relative;
   margin-right: 1rem;
-  & img {
-    width: 3.5rem;
-    height: 3.5rem;
-    border-radius: 50%;
-  }
 `;
 
 export const UserName = styled.div`

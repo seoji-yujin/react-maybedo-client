@@ -35,9 +35,11 @@ export const TitleDiv = styled.div`
 export const GroupImage = styled.div`
   background-color: #d0d0d0;
   width: 15rem;
-  background: url('https://bit.ly/3e22Imq');
-  background-position: center;
+  background: ${(props) =>
+    props.src ? `url(${props.src});` : `url("/images/group_default.jpeg");`};
+  background-size: cover;
   background-repeat: no-repeat;
+  background-position: center;
   border-radius: 10px;
   @media ${theme.device.phone} {
     width: 100%;
@@ -81,6 +83,9 @@ export const MenuList = styled.div`
   gap: 2rem;
   border-top: 1px solid var(--color-disabled);
   margin-top: 2.5rem;
+  @media ${theme.device.phone} {
+    margin-bottom: 2rem;
+  }
 `;
 
 export const MenuDiv = styled.div`

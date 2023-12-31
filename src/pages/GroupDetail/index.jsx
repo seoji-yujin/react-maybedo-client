@@ -30,6 +30,7 @@ import useRequest from 'hooks/useRequest';
 import { deleteGroup } from 'apis/group';
 import DeleteConfirmPopup from './DeleteConfirmPopup';
 import { toast } from 'react-toastify';
+import { API_URL } from 'utils/constant';
 
 function GroupDetail() {
   const { id } = useParams();
@@ -106,7 +107,11 @@ function GroupDetail() {
       </TitleDiv>
       <Content>
         <GroupProfileWrapper>
-          <GroupImage />
+          <GroupImage
+            src={`${
+              groupInfo.imagePath ? `${API_URL}/${groupInfo.imagePath}` : ''
+            }`}
+          />
           <GroupInfoDiv>
             <div>
               <GroupSummary>

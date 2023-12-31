@@ -7,6 +7,7 @@ import { toast } from 'react-toastify';
 import ProfileImage from 'components/ProfileImage';
 import useSWR from 'swr';
 import fetcher from 'utils/fetcher';
+import { API_URL } from 'utils/constant';
 
 function Layout({ children }) {
   const navigate = useNavigate();
@@ -52,7 +53,7 @@ function Layout({ children }) {
             <ProfileImage
               width="2"
               height="2"
-              src="https://fastly.picsum.photos/id/278/600/600.jpg?hmac=3oGo6rQo42jgkjtw1Yiow2k8Jpuf-skpQCG9-lCTVyo"
+              src={`${loginUser.image ? `${API_URL}/${loginUser.image}` : ''}`}
             />
           </UserInfo>
         )}

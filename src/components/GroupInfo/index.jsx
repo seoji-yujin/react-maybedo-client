@@ -10,11 +10,14 @@ import {
 } from './style';
 import { BsPersonFill } from 'react-icons/bs';
 import { IoCalendarClear } from 'react-icons/io5';
+import { API_URL } from 'utils/constant';
 
 function GroupInfo({ group, onClick }) {
   return (
     <GroupWrapper onClick={onClick}>
-      <GroupImage />
+      <GroupImage
+        src={`${group.imagePath ? `${API_URL}/${group.imagePath}` : ''}`}
+      />
       <GroupInfoDiv>
         <GroupSummary>
           <div>

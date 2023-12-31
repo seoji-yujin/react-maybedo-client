@@ -4,10 +4,11 @@ import theme from 'styles/theme';
 export const GroupImage = styled.div`
   background-color: #d0d0d0;
   width: 15rem;
-  height: 100%;
-  background: url('https://bit.ly/3e22Imq');
-  background-position: center;
+  background: ${(props) =>
+    props.src ? `url(${props.src});` : `url("/images/group_default.jpeg");`};
+  background-size: cover;
   background-repeat: no-repeat;
+  background-position: center;
   @media ${theme.device.phone} {
     width: 100%;
     height: 10rem;
