@@ -125,7 +125,8 @@ function CreateGroup() {
     formData.append('limit_member', limitMember);
     formData.append('description', desc);
     formData.append('tag', tags);
-    formData.append('image_file', imageFile);
+    const image = imageFile ? imageFile : new File([], '');
+    formData.append('image_file', image);
     requestCreateGroup(formData)
       .then((res) => {
         navigate(`/group/${res.id}`);

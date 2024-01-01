@@ -106,7 +106,8 @@ function Join() {
     formData.append('name', nickname);
     formData.append('email', email);
     formData.append('password', password);
-    formData.append('image_file', imageFile);
+    const image = imageFile ? imageFile : new File([], '');
+    formData.append('image_file', image);
     try {
       const result = await requestJoin(formData);
       if (result === -1) {
