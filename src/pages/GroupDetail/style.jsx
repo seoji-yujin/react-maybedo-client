@@ -7,6 +7,11 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   margin-top: 2rem;
+  box-shadow: 2px 4px 12px rgba(0, 0, 0, 0.1);
+  background-color: white;
+  padding: 0.5rem 1rem;
+  min-height: 70vh;
+  margin-bottom: 5rem;
 `;
 
 export const Content = styled.div`

@@ -28,8 +28,8 @@ function GroupInfo() {
       <ContentDiv>
         {!isEmpty(noticeList) ? (
           <>
-            {noticeList.map((notice) => (
-              <div>•&nbsp;&nbsp;{notice.content}</div>
+            {noticeList.map((notice, i) => (
+              <div key={i}>•&nbsp;&nbsp;{notice.content}</div>
             ))}
           </>
         ) : (

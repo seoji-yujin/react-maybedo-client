@@ -1,26 +1,11 @@
-import React, { useCallback } from 'react';
-import {
-  MemberWrapper,
-  MemberDiv,
-  ProfileWrapper,
-  UserName,
-  ProgressWrapper,
-  UserInfo,
-  TitleDiv,
-} from './style';
+import React from 'react';
+import { MemberWrapper, MemberDiv, TitleDiv } from './style';
 import useSWR from 'swr';
 import fetcher from 'utils/fetcher';
-import { IoChevronForward } from 'react-icons/io5';
-import ProfileImage from 'components/ProfileImage';
-import { API_URL } from 'utils/constant';
+import MemberProfile from './MemberProfile';
 
 function GroupMembers({ groupId, setUser, setShowDetail }) {
   const { data: memberInfo } = useSWR(`/group/members/${groupId}`, fetcher);
-
-  const getRate = useCallback((user) => {
-    if (!user) return 0;
-    return !user.achievement ? 0 : Math.floor(user.achievement);
-  }, []);
 
   if (!memberInfo) {
     return null;
@@ -38,25 +23,7 @@ function GroupMembers({ groupId, setUser, setShowDetail }) {
               setShowDetail(true);
             }}
           >
-            <ProfileWrapper>
-              <ProfileImage
-                width="3.5"
-                height="3.5"
-                src={`${
-                  member.imagePath ? `${API_URL}/${member.imagePath}` : ''
-                }`}
-                cursor="default"
-              />
-            </ProfileWrapper>
-            <UserInfo>
-              <UserName>
-                {member.name} <IoChevronForward />
-              </UserName>
-              <ProgressWrapper>
-                <progress value={getRate(member)} max={100} />
-                <div>{getRate(member)}%</div>
-              </ProgressWrapper>
-            </UserInfo>
+            <MemberProfile member={member} />
           </MemberDiv>
         ))}
       </MemberWrapper>

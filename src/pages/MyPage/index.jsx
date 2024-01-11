@@ -103,6 +103,7 @@ function MyPage() {
     nickname,
     requestUpdate,
     setEmail,
+    setNickname,
     userInfo.email,
     userInfo.name,
   ]);
