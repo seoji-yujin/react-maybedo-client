@@ -3,7 +3,6 @@ import styled from '@emotion/styled';
 export const LogoDiv = styled.div`
   font-size: 2rem;
   font-weight: 500;
-  margin-bottom: 2rem;
   text-align: center;
   color: var(--color-primary);
 `;

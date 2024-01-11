@@ -31,7 +31,7 @@ function GroupInfo({ group, onClick }) {
               <IoCalendarClear />
             </span>
 
-            {group.expireDate}
+            {group.creationDate}
           </div>
         </GroupSummary>
         <GroupName>{group.name}</GroupName>

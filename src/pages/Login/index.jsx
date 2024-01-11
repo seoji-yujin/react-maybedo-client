@@ -47,6 +47,9 @@ function Login() {
       setErrorMsg('로그인에 실패하였습니다.');
     });
     if (result === -1) {
+      setErrorMsg('존재하지 않는 아이디입니다.');
+      return;
+    } else if (result === -2) {
       setErrorMsg('비밀번호가 일치하지 않습니다.');
       return;
     } else if (result === 1) {

@@ -20,14 +20,14 @@ export const GroupWrapper = styled.div`
   gap: 0.8rem;
   width: 100%;
   /* border-bottom: 1px solid var(--color-primary); */
-  /* box-shadow: 2px 4px 12px rgba(0, 0, 0, 0.1); */
-  border: 1px solid var(--color-border);
+  box-shadow: 2px 4px 12px rgba(0, 0, 0, 0.1);
+  /* border: 1px solid var(--color-border); */
   background-color: white;
   /* border-radius: 10px; */
   cursor: pointer;
   box-sizing: border-box;
   :hover {
-    /* box-shadow: 2px 4px 16px rgba(0, 0, 0, 0.16); */
+    box-shadow: 2px 4px 16px rgba(0, 0, 0, 0.16);
     transform: scale3d(1.01, 1.01, 1.01);
   }
   @media ${theme.device.phone} {

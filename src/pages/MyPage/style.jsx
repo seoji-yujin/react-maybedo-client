@@ -61,6 +61,9 @@ export const UserDetailInfo = styled.div`
     gap: 1.5rem;
     font-weight: 600;
     color: var(--color-primary);
+    > div {
+      width: 4.5rem;
+    }
     > span {
       font-weight: 300;
       color: #000;
@@ -75,6 +78,9 @@ export const FormItem = styled.div`
   position: relative;
   align-items: center;
   ${(props) => props.flexDirection && `flex-direction:${props.flexDirection};`}
+  > label {
+    width: 4.5rem;
+  }
   > div {
     font-weight: 600;
     color: var(--color-primary);

@@ -62,9 +62,11 @@ export const AddGroupButton = styled(GroupWrapper)`
   font-size: 0.9rem;
   font-weight: 400;
   border: 1px solid var(--color-border);
+  box-shadow: none;
   margin-bottom: 2rem;
   :hover {
     transform: none;
+    box-shadow: none;
   }
 `;
 

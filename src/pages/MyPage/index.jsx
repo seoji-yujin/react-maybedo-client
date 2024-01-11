@@ -33,6 +33,7 @@ function MyPage() {
   const [editMode, setEditMode] = useState(false);
   const [email, onChangeEmail, setEmail] = useInput('');
   const [nickname, onChangeNickname, setNickname] = useInput('');
+  const [message, onChangeMessage, setMessage] = useInput('');
   const [imageFile, setImageFile] = useState(null);
 
   const [profileImage, setProfileImage] = useState(null);
@@ -61,15 +62,12 @@ function MyPage() {
     if (!userInfo) return;
     setEmail(userInfo.email || '');
     setNickname(userInfo.name || '');
+    setMessage(userInfo.message || '');
     setProfileImage(userInfo.imagePath);
-  }, [setEmail, setNickname, userInfo]);
+  }, [setEmail, setMessage, setNickname, userInfo]);
 
   const requestUpdate = useRequest(updateUserInfo);
   const updateUserInfoProc = useCallback(() => {
-    const newUserInfo = {
-      email: userInfo?.email,
-      name: userInfo?.name,
-    };
     const regexEmail =
       /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
     if (email && email.trim()) {
@@ -77,14 +75,13 @@ function MyPage() {
         toast.error('유효하지 않은 이메일 형식 입니다.');
         return;
       }
-      newUserInfo.email = email;
-    }
-    if (nickname && nickname.trim()) {
-      newUserInfo.name = nickname;
     }
     const formData = new FormData();
-    formData.append('name', nickname);
-    formData.append('email', email);
+    if (!email.trim()) setEmail(userInfo.email);
+    if (!nickname.trim()) setNickname(userInfo.name);
+    formData.append('name', nickname.trim() || userInfo.name);
+    formData.append('email', email || userInfo.email);
+    formData.append('message', message.trim());
     if (imageFile) {
       formData.append('image_file', imageFile);
     }
@@ -100,12 +97,14 @@ function MyPage() {
   }, [
     email,
     imageFile,
+    message,
     mutateLoginUser,
     mutateUserInfo,
     nickname,
     requestUpdate,
-    userInfo?.email,
-    userInfo?.name,
+    setEmail,
+    userInfo.email,
+    userInfo.name,
   ]);
 
   return (
@@ -119,6 +118,9 @@ function MyPage() {
                 setEditMode((prev) => !prev);
                 setProfileImage(userInfo.imagePath);
                 setImageFile(null);
+                setEmail(userInfo.email || '');
+                setNickname(userInfo.name || '');
+                setMessage(userInfo.message || '');
               }}
             >
               취소
@@ -212,14 +214,26 @@ function MyPage() {
                   onChange={onChangeEmail}
                 />
               </FormItem>
+              <FormItem>
+                <label>한 줄 소개</label>
+                <input
+                  placeholder="한 줄 소개"
+                  value={message}
+                  onChange={onChangeMessage}
+                />
+              </FormItem>
             </>
           ) : (
             <>
               <div>
-                닉네임 <span>{userInfo && userInfo.name}</span>
+                <div>닉네임</div> <span>{userInfo && userInfo.name}</span>
               </div>
               <div>
-                이메일 <span>{userInfo && userInfo.email}</span>
+                <div>이메일</div> <span>{userInfo && userInfo.email}</span>
+              </div>
+              <div>
+                <div>한 줄 소개</div>
+                <span>{(userInfo && userInfo.message) || '-'}</span>
               </div>
             </>
           )}
