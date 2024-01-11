@@ -104,8 +104,7 @@ function MyPage() {
     requestUpdate,
     setEmail,
     setNickname,
-    userInfo.email,
-    userInfo.name,
+    userInfo,
   ]);
 
   return (
