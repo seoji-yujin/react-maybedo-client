@@ -40,6 +40,17 @@ export const ContentDiv = styled.div`
   padding: 1.5rem 1rem;
 `;
 
+export const StreakContentDiv = styled.div`
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  background-color: #fff;
+  padding: 1.5rem 1rem;
+`;
+
 export const UserProfileInfo = styled.div`
   display: flex;
   align-items: center;
@@ -105,4 +116,9 @@ export const RowWrapper = styled.div`
   display: flex;
   gap: 0.5rem;
   align-items: center;
+`;
+
+export const StreakTitle = styled.div`
+  font-weight: 500;
+  color: var(--color-primary);
 `;

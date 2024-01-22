@@ -5,12 +5,14 @@ import fetcher from 'utils/fetcher';
 import {
   Container,
   TitleDiv,
+  StreakContentDiv,
   ContentDiv,
   UserProfileInfo,
   UserDetailInfo,
   FormItem,
   RowWrapper,
   HeaderButton,
+  StreakTitle,
 } from './style';
 import { MdOutlineModeEditOutline } from 'react-icons/md';
 import { CiCamera } from 'react-icons/ci';
@@ -20,6 +22,7 @@ import { ProfileInputButton, ProfileInputWrapper } from 'pages/Join/style';
 import useRequest from 'hooks/useRequest';
 import { updateUserInfo } from 'apis/member';
 import { API_URL } from 'utils/constant';
+import Streak from 'components/Streak';
 
 function MyPage() {
   const { data: loginUser, mutate: mutateLoginUser } = useSWR(
@@ -28,6 +31,10 @@ function MyPage() {
   );
   const { data: userInfo, mutate: mutateUserInfo } = useSWR(
     loginUser ? `/member?username=${loginUser.id}` : null,
+    fetcher
+  );
+  const { data: todoStreak } = useSWR(
+    loginUser ? `/streaks/${loginUser.id}` : null,
     fetcher
   );
   const [editMode, setEditMode] = useState(false);
@@ -239,6 +246,18 @@ function MyPage() {
           )}
         </UserDetailInfo>
       </ContentDiv>
+      {todoStreak && (
+        <StreakContentDiv>
+          <StreakTitle>TODO 스트릭</StreakTitle>
+          <Streak
+            todoStreak={todoStreak}
+            maxStreak={365}
+            line={5}
+            width={1460}
+            height={100}
+          />
+        </StreakContentDiv>
+      )}
     </Container>
   );
 }

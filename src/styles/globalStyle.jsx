@@ -12,6 +12,7 @@ const baseStyle = css`
     --color-textgray: #8b8b8b;
     --color-border: #d9d9d9;
     --color-background: #fbfbfd;
+    --color-unchecked: rgb(220, 220, 220);
     --max-width: 1240px;
   }
   html {
