@@ -7,7 +7,7 @@ import useSWR from 'swr';
 import fetcher from 'utils/fetcher';
 
 function MemberProfile({ member }) {
-  const { data: userStreak } = useSWR(`/streak/${member.name}`, fetcher);
+  const { data: userStreak } = useSWR(`/streak/${member.username}`, fetcher);
   return (
     <>
       <ProfileWrapper>
