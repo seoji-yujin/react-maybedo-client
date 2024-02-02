@@ -43,19 +43,21 @@ function Login() {
       username: id,
       password: password,
     };
-    const result = await requestLogin(user).catch((e) => {
+    try {
+      const result = await requestLogin(user);
+      if (result === -1) {
+        setErrorMsg('존재하지 않는 아이디입니다.');
+        return;
+      } else if (result === -2) {
+        setErrorMsg('비밀번호가 일치하지 않습니다.');
+        return;
+      } else if (result >= 1) {
+        mutateLoginUser();
+        navigate('/');
+        setErrorMsg(null);
+      }
+    } catch {
       setErrorMsg('로그인에 실패하였습니다.');
-    });
-    if (result === -1) {
-      setErrorMsg('존재하지 않는 아이디입니다.');
-      return;
-    } else if (result === -2) {
-      setErrorMsg('비밀번호가 일치하지 않습니다.');
-      return;
-    } else if (result === 1) {
-      mutateLoginUser();
-      navigate('/');
-      setErrorMsg(null);
     }
   }, [id, mutateLoginUser, navigate, password, requestLogin]);
 
